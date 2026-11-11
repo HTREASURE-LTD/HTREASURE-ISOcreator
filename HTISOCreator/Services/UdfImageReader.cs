@@ -48,6 +48,40 @@ namespace HTISOCreator.Services
             return TagIsValid(anchor, 0, TagAnchor, AnchorSector) == null;
         }
 
+        /// <summary>
+        /// Walks the volume recognition sequence from sector 16 (ISO 9660 "CD001" descriptors, then
+        /// "BEA01" ... "TEA01") and reports whether it contains "NSR02" or "NSR03".
+        /// </summary>
+        internal static bool HasNsrDescriptor(Stream stream)
+        {
+            for (long sector = 16; sector < AnchorSector; sector++)
+            {
+                if ((sector + 1) * SectorSize > stream.Length)
+                {
+                    return false;
+                }
+
+                byte[] descriptor = Read(stream, sector * SectorSize, SectorSize);
+                string id = System.Text.Encoding.ASCII.GetString(descriptor, 1, 5);
+                switch (id)
+                {
+                    case "NSR02":
+                    case "NSR03":
+                        return true;
+                    case "CD001":
+                    case "BEA01":
+                    case "BOOT2":
+                    case "CDW02":
+                        continue;
+                    default:
+                        // TEA01 or anything unrecognised ends the sequence.
+                        return false;
+                }
+            }
+
+            return false;
+        }
+
         /// <summary>Reads the UDF file system into <paramref name="info"/> (UdfEntries, label, revision, problems).</summary>
         public static void ReadInto(Stream stream, IsoImageInfo info, Action<string> addProblem, CancellationToken cancellationToken)
         {
@@ -59,6 +93,13 @@ namespace HTISOCreator.Services
             if (reserveLength > 0 && reserveSector * SectorSize + reserveLength > stream.Length)
             {
                 addProblem("UDF: the reserve volume descriptor sequence lies outside the image (the file is truncated).");
+            }
+
+            // ECMA-167 2/8.3: a volume recognition sequence starting at sector 16 must contain an NSR
+            // descriptor ("NSR02" or "NSR03"). Windows will not mount a UDF volume without it.
+            if (!HasNsrDescriptor(stream))
+            {
+                addProblem("UDF: the volume recognition sequence at sector 16 has no NSR descriptor, so Windows and other systems will not recognise the UDF file system (the start of the image is damaged).");
             }
 
             // ECMA-167 3/8.4.2: at least two of the anchor points 256, N-256 and N must hold an anchor.

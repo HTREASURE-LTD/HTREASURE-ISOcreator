@@ -1,4 +1,4 @@
-namespace HTISOCreator.Forms
+﻿namespace HTISOCreator.Forms
 {
     partial class AboutForm
     {
@@ -60,7 +60,7 @@ namespace HTISOCreator.Forms
             this.developerLabel.Name = "developerLabel";
             this.developerLabel.Size = new System.Drawing.Size(63, 15);
             this.developerLabel.TabIndex = 1;
-            this.developerLabel.Text = "Developer:";
+            this.developerLabel.Text = "Publisher:";
             //
             // developerValueLabel
             //
@@ -69,7 +69,7 @@ namespace HTISOCreator.Forms
             this.developerValueLabel.Name = "developerValueLabel";
             this.developerValueLabel.Size = new System.Drawing.Size(73, 15);
             this.developerValueLabel.TabIndex = 2;
-            this.developerValueLabel.Text = "HT Software";
+            this.developerValueLabel.Text = "HTREASURE LTD";
             //
             // versionLabel
             //
@@ -95,7 +95,7 @@ namespace HTISOCreator.Forms
             this.descriptionLabel.Name = "descriptionLabel";
             this.descriptionLabel.Size = new System.Drawing.Size(420, 48);
             this.descriptionLabel.TabIndex = 5;
-            this.descriptionLabel.Text = "HT ISO Creator is a Windows desktop utility designed to create standard ISO image files from folders and files quickly, reliably, and efficiently.";
+            this.descriptionLabel.Text = "HT ISO Creator creates and verifies standard data ISO images (ISO 9660, Joliet and UDF) from folders. It does not create bootable images.";
             //
             // copyrightLabel
             //
@@ -104,7 +104,7 @@ namespace HTISOCreator.Forms
             this.copyrightLabel.Name = "copyrightLabel";
             this.copyrightLabel.Size = new System.Drawing.Size(232, 15);
             this.copyrightLabel.TabIndex = 6;
-            this.copyrightLabel.Text = "Copyright © 2026 HT Software. All rights reserved.";
+            this.copyrightLabel.Text = "Copyright © 2026 HTREASURE LTD. All rights reserved.";
             //
             // licenceLabel
             //
@@ -114,7 +114,7 @@ namespace HTISOCreator.Forms
             this.licenceLabel.Size = new System.Drawing.Size(420, 32);
             this.licenceLabel.TabIndex = 7;
             this.licenceLabel.Tag = "dim";
-            this.licenceLabel.Text = "ISO images are written with DiscUtils 0.16.13, used under the MIT License.";
+            this.licenceLabel.Text = "ISO 9660 and Joliet images are written with DiscUtils 0.16.13 (MIT License); UDF images with the Windows IMAPI2 component.";
             //
             // noticesLinkLabel
             //

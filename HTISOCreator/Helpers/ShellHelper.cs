@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 
 namespace HTISOCreator.Helpers
@@ -14,6 +14,22 @@ namespace HTISOCreator.Helpers
         public static void OpenFolder(string folderPath)
         {
             Process.Start("explorer.exe", "\"" + folderPath + "\"");
+        }
+
+        /// <summary>
+        /// Opens a text or Markdown document with its associated program, or with Notepad when no
+        /// program is associated with the file type (common for .md files).
+        /// </summary>
+        public static void OpenDocument(string path)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                Process.Start("notepad.exe", "\"" + path + "\"");
+            }
         }
 
         /// <summary>

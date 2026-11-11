@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -35,7 +35,7 @@ namespace HTISOCreator.Services
         }
 
         public static string DefaultSettingsFile =>
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "HT Software", "HT ISO Creator", "settings.xml");
+            Path.Combine(Helpers.AppPaths.RoamingFolder, "settings.xml");
 
         public string SettingsFile { get; }
 

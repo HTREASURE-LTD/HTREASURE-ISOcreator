@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,7 +26,11 @@ namespace HTISOCreator.Services
         }
 
         public static string DefaultRegistryFile =>
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "HT Software", "HT ISO Creator", "pending-operations.txt");
+            Path.Combine(Helpers.AppPaths.LocalFolder, "pending-operations.txt");
+
+        /// <summary>Registry file used by development builds before version 1.0.0.</summary>
+        public static string LegacyRegistryFile =>
+            Path.Combine(Helpers.AppPaths.LegacyLocalFolder, "pending-operations.txt");
 
         public string RegistryFile { get; }
 

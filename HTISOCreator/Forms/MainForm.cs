@@ -117,6 +117,7 @@ namespace HTISOCreator.Forms
             SelectFormat(_settings.DefaultFormat);
             capacityComboBox.Items.AddRange(CapacityProfile.All.Cast<object>().ToArray());
             ApplyWorkflowSettings();
+            RestoreWindowPlacement();
             FitToScreen();
             ApplyTheme();
             ResetProgressDisplay("Ready. Select or drag a source folder to begin.");
@@ -166,6 +167,54 @@ namespace HTISOCreator.Forms
             _settings.VerifyHashes = verifyHashes;
             Capacity_Changed(this, EventArgs.Empty);
             VerifyOptions_Changed(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Puts the window back where it was last closed, if that place is still on a screen (monitors
+        /// may have been removed or rearranged since). Sizes are never smaller than the minimum.
+        /// </summary>
+        private void RestoreWindowPlacement()
+        {
+            if (_settings.WindowWidth <= 0 || _settings.WindowHeight <= 0)
+            {
+                return;
+            }
+
+            var saved = new Rectangle(_settings.WindowLeft, _settings.WindowTop,
+                Math.Max(_settings.WindowWidth, MinimumSize.Width), Math.Max(_settings.WindowHeight, MinimumSize.Height));
+            bool visible = Screen.AllScreens.Any(screen =>
+            {
+                Rectangle overlap = Rectangle.Intersect(screen.WorkingArea, saved);
+                return overlap.Width >= 200 && overlap.Height >= 100;
+            });
+            if (!visible)
+            {
+                _log.Info("Saved window position is off-screen; using the default position.");
+                return;
+            }
+
+            StartPosition = FormStartPosition.Manual;
+            Bounds = saved;
+            if (_settings.WindowMaximized)
+            {
+                WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        /// <summary>Records the normal-state position and size, and whether the window is maximised.</summary>
+        private void SaveWindowPlacement()
+        {
+            Rectangle bounds = WindowState == FormWindowState.Normal ? Bounds : RestoreBounds;
+            if (bounds.Width <= 0 || bounds.Height <= 0)
+            {
+                return;
+            }
+
+            _settings.WindowLeft = bounds.Left;
+            _settings.WindowTop = bounds.Top;
+            _settings.WindowWidth = bounds.Width;
+            _settings.WindowHeight = bounds.Height;
+            _settings.WindowMaximized = WindowState == FormWindowState.Maximized;
         }
 
         /// <summary>At high display scaling the window can be taller than the screen; shrink it to fit.</summary>
@@ -968,6 +1017,29 @@ namespace HTISOCreator.Forms
                 "Keyboard Shortcuts", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        /// <summary>Opens a document from the Documentation folder installed next to the program.</summary>
+        private void DocumentMenuItem_Click(object sender, EventArgs e)
+        {
+            var item = (ToolStripMenuItem)sender;
+            string path = Path.Combine(AppPaths.DocumentationFolder, (string)item.Tag);
+            if (!File.Exists(path))
+            {
+                MessageBox.Show(this, "The document was not found:\n\n" + path + "\n\nReinstall HT ISO Creator or download the documentation package.",
+                    AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                ShellHelper.OpenDocument(path);
+            }
+            catch (Exception ex) when (ex is System.ComponentModel.Win32Exception || ex is InvalidOperationException)
+            {
+                _log.Error("Could not open document " + path, ex);
+                MessageBox.Show(this, "The document could not be opened:\n\n" + path, AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void AboutMenuItem_Click(object sender, EventArgs e)
         {
             using (var about = new AboutForm())
@@ -1015,6 +1087,7 @@ namespace HTISOCreator.Forms
                 _settings.LastOutputFolder = string.Empty;
             }
 
+            SaveWindowPlacement();
             _settingsService.Save(_settings);
         }
 

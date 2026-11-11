@@ -55,6 +55,17 @@
         /// </summary>
         public FilenameMode FilenameMode { get; set; } = FilenameMode.Strict;
 
+        /// <summary>Main window position and size (normal state); width 0 means "not saved yet".</summary>
+        public int WindowLeft { get; set; }
+
+        public int WindowTop { get; set; }
+
+        public int WindowWidth { get; set; }
+
+        public int WindowHeight { get; set; }
+
+        public bool WindowMaximized { get; set; }
+
         public AppSettings Clone()
         {
             return (AppSettings)MemberwiseClone();

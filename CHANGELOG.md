@@ -1,6 +1,38 @@
 # Changelog
 
-## 1.0.3: Stage 3.3, UDF through Windows IMAPI2 (2026-11-11)
+All notable changes to HT ISO Creator. Version 1.0.0 is the first public release. The development builds listed below it were internal. Their internal numbers (1.0.2, 1.0.3) were never released, and 1.0.0 supersedes them.
+
+## 1.0.0: first public release (Stage 4)
+
+### Added
+- **Help menu:** User Guide, File System Guide, Troubleshooting, Release Notes and Third-Party Notices. They open from the `Documentation` folder installed with the program.
+- **About window:** shows the publisher (HTREASURE LTD), the version with its build and configuration (for example "1.0.0 (build 1.0.0.0, Release)"), and the support details (program path, .NET runtime, Windows version) in a tooltip. It states that the program creates data images and does not create bootable images.
+- **Window position:** the main window remembers its size, position and maximised state. A saved position that is no longer on any screen is ignored.
+- **Screen reader names** for the source, output, volume, file system and target disc fields, the progress bar and the status lines.
+- **Windows installer** (`installer\HTISOCreator.iss`, Inno Setup 6):
+  - installs for all users or for the current user only;
+  - Start Menu shortcut, optional desktop shortcut, uninstall entry;
+  - upgrades in place and keeps user settings;
+  - checks for .NET Framework 4.6.2;
+  - closes a running copy before replacing files.
+- **Release build script** (`Tools\Build-Release.ps1`): a clean Release build with warnings treated as errors, tests, the installer, portable, documentation and source packages, and `SHA256SUMS.txt`.
+- **Documentation:** README, INSTALLATION, USER_GUIDE, FILESYSTEM_GUIDE, TROUBLESHOOTING, RELEASE_NOTES, TEST_REPORT and THIRD_PARTY_NOTICES.
+
+### Changed
+- **Version and publisher:** version 1.0.0 (file version 1.0.0.0); publisher, company and copyright are HTREASURE LTD (previously "HT Software").
+- **Data folders:** settings and history are in `%APPDATA%\HTREASURE LTD\HT ISO Creator`, and logs are in `%LOCALAPPDATA%\HTREASURE LTD\HT ISO Creator`. The first start copies settings and history from the development builds' `HT Software` folder, without changing or deleting it. An unfinished operation recorded by a development build is still cleaned up.
+- The developer README moved to `docs/DEVELOPMENT_NOTES.md`; `README.md` now describes the product.
+
+### Fixed
+- **Read-only ISOs:** replacing an existing **read-only** ISO reported success but left a `.backup` file beside it, because the backup couldn't be deleted. Read-only ISOs are now never replaced; the app says why and suggests a fix, and nothing is written.
+- **Reserved file names:** an output file named after a Windows device (`CON.iso`, `NUL.iso`, `COM1.iso`, `LPT1.iso` and so on) was accepted and then failed when the image was written. It is now rejected straight away with an explanation. Found in Stage 4.3 QA.
+- **Windows mount errors:** when Windows couldn't mount an image, the verification result showed `#< CLIXML` (raw PowerShell error data) instead of the reason. It now shows Windows' message, for example "The file or directory is corrupted and unreadable." Found in Stage 4.3 QA.
+- **UDF verification:** a UDF image whose volume recognition sequence (sector 16) was damaged passed verification when the Windows mount check was off, although Windows refuses to mount such an image. The UDF reader now requires the NSR descriptor and reports the damage. Found in Stage 4.3 QA.
+
+### Removed from scope
+- **Bootable images** (El Torito, BIOS, UEFI) are not part of 1.0.0. Nothing advertises them. ISO Information still *detects* a boot record in existing images.
+
+## Development build: Stage 3.3, UDF through Windows IMAPI2 (internal version 1.0.3)
 
 ### Why
 Joliet stores names of at most 64 characters, so `Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll` (70) could only be kept exactly by switching to UDF. DiscUtils can't write UDF. IMAPI2 is built into Windows and could do it. A feasibility test showed it writes UDF images without a disc drive and keeps names up to 127 characters, and Windows mounts the result. That test made images through COM from PowerShell and a small C# test program. Stage 3.3 adds IMAPI2 as a second engine. DiscUtils stays for ISO 9660 and ISO 9660 + Joliet.
@@ -28,7 +60,7 @@ Joliet stores names of at most 64 characters, so `Microsoft.VisualStudio.TestPla
 | `Helpers\VolumeLabelValidator.cs` | The UDF formats use the 16-character label rule. |
 | `Services\FilenameConversionReport.cs`, `Models\HistoryEntry.cs`, `Models\VerificationResult.cs` | Format names (and engine) come from `FileSystemFormats`. |
 | `HTISOCreator.csproj` | References `Microsoft.CSharp` (needed for late-bound COM calls). No new NuGet packages. |
-| `Properties\AssemblyInfo.cs` | Version 1.0.3. |
+| `Properties\AssemblyInfo.cs` | Internal version 1.0.3. |
 
 ### User interface
 | File | Change |
@@ -47,7 +79,7 @@ Joliet stores names of at most 64 characters, so `Microsoft.VisualStudio.TestPla
 - **Existing formats:** ISO 9660 and ISO 9660 + Joliet images are made exactly as in 1.0.2.
 - **Everything else:** the Strict and Compatibility Mode rules, reports, history, capacity profiles and the .NET Framework 4.6.2 target.
 
-## 1.0.2: Stage 3.2, strict filename preservation (2026-11-11)
+## Development build: Stage 3.2, strict filename preservation (internal version 1.0.2)
 
 ### Why
 The Stage 3 regression found that two files named `Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll` (70 characters) were stored as `...MSTestAdapter.PlatformSe.dll`. Joliet, the long-name format, allows 64 characters per name, and DiscUtils can't write UDF. Programs load DLLs by exact name, so a silent rename can break software on the disc. Stage 3.2 makes every name change a decision the user takes, and checks the result.
@@ -73,7 +105,7 @@ The Stage 3 regression found that two files named `Microsoft.VisualStudio.TestPl
 | `Services\FilenameConversionReport.cs` | **New.** TXT and CSV report with date, source, destination, file system, mode, status, totals, affected counts, collision warnings and one row per conversion. CSV is UTF-8 with BOM, RFC 4180 quoting and formula neutralisation. |
 | `Services\IsoVerificationService.cs` | New *File names* check: exact, case-sensitive comparison against the plan, judged by Strict, Compatibility or report-only rules. A passing SHA-256 check cannot hide a rename. Also new: separate *ISO 9660 directory tree*, *Joliet directory tree* and *Duplicate entries* checks. |
 | `Services\IsoImageReader.cs` | `DuplicateEntryText` constant (same message as before). |
-| `Properties\AssemblyInfo.cs` | Version 1.0.2. |
+| `Properties\AssemblyInfo.cs` | Internal version 1.0.2. |
 
 ### User interface
 | File | Change |
@@ -94,8 +126,8 @@ The Stage 3 regression found that two files named `Microsoft.VisualStudio.TestPl
 - **Image writing:** ISO 9660 / Joliet writing, the name conversion rules, capacity profiles, history, crash recovery, safe replacement and the .NET Framework 4.6.2 target.
 - **Joliet name limit:** it stays at the standard 64 characters. Longer "Joliet-long" names are non-standard, and DiscUtils images with them were reported as corrupt by Windows in Stage 1.
 
-## Fix after the Stage 3 ZIP (first released in 1.0.2)
+## Development fix after the Stage 3 ZIP (included from Stage 3.2)
 - **Unique plain ISO 9660 alias names:** `Services\IsoShortNames.cs` gives every file and folder a unique, valid alias name in each folder and keeps real extensions. DiscUtils 0.16.13 produced duplicates such as several `HTISOCREATOR.CSP` entries. Used by creation and by the size calculator.
 
-## 1.0.0: Stages 1 to 3
-See README.md.
+## Development builds: Stages 1 to 3
+See docs/DEVELOPMENT_NOTES.md.

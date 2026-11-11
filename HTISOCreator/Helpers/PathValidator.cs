@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 
 namespace HTISOCreator.Helpers
@@ -54,16 +54,61 @@ namespace HTISOCreator.Helpers
                 return "The output path is a folder. Enter a file name ending in .iso.";
             }
 
+            string reserved = ReservedDeviceName(Path.GetFileName(full));
+            if (reserved != null)
+            {
+                return "'" + reserved + "' is a name Windows reserves for a device, so it cannot be used as a file name. Choose a different file name.";
+            }
+
             string directory = Path.GetDirectoryName(full);
             if (string.IsNullOrEmpty(directory) || !Directory.Exists(directory))
             {
                 return "The output folder does not exist.";
             }
 
+            // A read-only ISO is protected: replacing it would also leave its backup behind (the backup
+            // cannot be deleted while it is read-only).
+            if (File.Exists(full) && (File.GetAttributes(full) & FileAttributes.ReadOnly) != 0)
+            {
+                return "The existing ISO file is read-only, so it will not be replaced. Clear its read-only attribute in File Explorer (Properties) or choose a different file name.";
+            }
+
             string sourceFull;
             if (!string.IsNullOrWhiteSpace(sourceFolder) && TryGetFullPath(sourceFolder, out sourceFull) && IsSameOrInside(full, sourceFull))
             {
                 return "The ISO file cannot be saved inside the source folder, because it would be included in itself. Choose a different location.";
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Returns the device name when <paramref name="fileName"/> is one Windows reserves (CON, PRN,
+        /// AUX, NUL, COM0-9, LPT0-9), with or without an extension, such as "CON.iso"; otherwise null.
+        /// </summary>
+        internal static string ReservedDeviceName(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                return null;
+            }
+
+            int dot = fileName.IndexOf('.');
+            string stem = (dot < 0 ? fileName : fileName.Substring(0, dot)).TrimEnd(' ');
+            switch (stem.ToUpperInvariant())
+            {
+                case "CON":
+                case "PRN":
+                case "AUX":
+                case "NUL":
+                    return stem;
+            }
+
+            if (stem.Length == 4 &&
+                (stem.StartsWith("COM", StringComparison.OrdinalIgnoreCase) || stem.StartsWith("LPT", StringComparison.OrdinalIgnoreCase)) &&
+                char.IsDigit(stem[3]) && stem[3] <= '9')
+            {
+                return stem;
             }
 
             return null;

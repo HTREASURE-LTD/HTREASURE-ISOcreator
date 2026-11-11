@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -8,7 +8,7 @@ using Microsoft.Win32;
 namespace HTISOCreator.Services
 {
     /// <summary>
-    /// Writes a daily text log under %LOCALAPPDATA%\HT Software\HT ISO Creator\Logs.
+    /// Writes a daily text log under %LOCALAPPDATA%\HTREASURE LTD\HT ISO Creator\Logs.
     /// Logging never throws: a failure to log must not break ISO creation.
     /// File contents are never logged, only paths, options and errors.
     /// Each operation gets a short reference (e.g. "a1b2c3d4") that is shown to the user in
@@ -28,7 +28,7 @@ namespace HTISOCreator.Services
         public static LoggingService Instance => LazyInstance.Value;
 
         public static string DefaultLogDirectory =>
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "HT Software", "HT ISO Creator", "Logs");
+            Path.Combine(Helpers.AppPaths.LocalFolder, "Logs");
 
         public string LogDirectory { get; }
 

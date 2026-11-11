@@ -68,6 +68,12 @@
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.shortcutsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.userGuideMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileSystemGuideMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.troubleshootingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.releaseNotesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.noticesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpDocsSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.headerPanel = new System.Windows.Forms.Panel();
             this.headerIcon = new System.Windows.Forms.PictureBox();
@@ -301,12 +307,63 @@
             // helpMenu
             //
             this.helpMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.userGuideMenuItem,
+            this.fileSystemGuideMenuItem,
+            this.troubleshootingMenuItem,
+            this.releaseNotesMenuItem,
+            this.helpDocsSeparator,
             this.shortcutsMenuItem,
+            this.noticesMenuItem,
             this.helpMenuSeparator,
             this.aboutMenuItem});
             this.helpMenu.Name = "helpMenu";
             this.helpMenu.Size = new System.Drawing.Size(44, 20);
             this.helpMenu.Text = "&Help";
+            //
+            // userGuideMenuItem
+            //
+            this.userGuideMenuItem.Name = "userGuideMenuItem";
+            this.userGuideMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.userGuideMenuItem.Tag = "USER_GUIDE.md";
+            this.userGuideMenuItem.Text = "&User Guide";
+            this.userGuideMenuItem.Click += new System.EventHandler(this.DocumentMenuItem_Click);
+            //
+            // fileSystemGuideMenuItem
+            //
+            this.fileSystemGuideMenuItem.Name = "fileSystemGuideMenuItem";
+            this.fileSystemGuideMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.fileSystemGuideMenuItem.Tag = "FILESYSTEM_GUIDE.md";
+            this.fileSystemGuideMenuItem.Text = "&File System Guide";
+            this.fileSystemGuideMenuItem.Click += new System.EventHandler(this.DocumentMenuItem_Click);
+            //
+            // troubleshootingMenuItem
+            //
+            this.troubleshootingMenuItem.Name = "troubleshootingMenuItem";
+            this.troubleshootingMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.troubleshootingMenuItem.Tag = "TROUBLESHOOTING.md";
+            this.troubleshootingMenuItem.Text = "&Troubleshooting";
+            this.troubleshootingMenuItem.Click += new System.EventHandler(this.DocumentMenuItem_Click);
+            //
+            // releaseNotesMenuItem
+            //
+            this.releaseNotesMenuItem.Name = "releaseNotesMenuItem";
+            this.releaseNotesMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.releaseNotesMenuItem.Tag = "RELEASE_NOTES.md";
+            this.releaseNotesMenuItem.Text = "&Release Notes";
+            this.releaseNotesMenuItem.Click += new System.EventHandler(this.DocumentMenuItem_Click);
+            //
+            // noticesMenuItem
+            //
+            this.noticesMenuItem.Name = "noticesMenuItem";
+            this.noticesMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.noticesMenuItem.Tag = "THIRD_PARTY_NOTICES.md";
+            this.noticesMenuItem.Text = "Third-Party &Notices";
+            this.noticesMenuItem.Click += new System.EventHandler(this.DocumentMenuItem_Click);
+            //
+            // helpDocsSeparator
+            //
+            this.helpDocsSeparator.Name = "helpDocsSeparator";
+            this.helpDocsSeparator.Size = new System.Drawing.Size(217, 6);
             //
             // shortcutsMenuItem
             //
@@ -413,6 +470,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sourceTextBox.Location = new System.Drawing.Point(124, 23);
             this.sourceTextBox.Name = "sourceTextBox";
+            this.sourceTextBox.AccessibleName = "Source folder";
             this.sourceTextBox.Size = new System.Drawing.Size(418, 23);
             this.sourceTextBox.TabIndex = 1;
             this.toolTip.SetToolTip(this.sourceTextBox, "The folder whose contents will be placed in the ISO image. You can also drag a folder from File Explorer.");
@@ -626,6 +684,7 @@
             this.volumeTextBox.Location = new System.Drawing.Point(124, 21);
             this.volumeTextBox.MaxLength = 32;
             this.volumeTextBox.Name = "volumeTextBox";
+            this.volumeTextBox.AccessibleName = "Volume name";
             this.volumeTextBox.Size = new System.Drawing.Size(220, 23);
             this.volumeTextBox.TabIndex = 1;
             this.toolTip.SetToolTip(this.volumeTextBox, "The disc label shown when the image is mounted or burned.");
@@ -648,6 +707,7 @@
             this.fileSystemComboBox.DropDownWidth = 320;
             this.fileSystemComboBox.Location = new System.Drawing.Point(462, 21);
             this.fileSystemComboBox.Name = "fileSystemComboBox";
+            this.fileSystemComboBox.AccessibleName = "File system";
             this.fileSystemComboBox.Size = new System.Drawing.Size(276, 23);
             this.fileSystemComboBox.TabIndex = 3;
             this.toolTip.SetToolTip(this.fileSystemComboBox, "ISO 9660 + Joliet suits most data discs. UDF keeps names up to 127 characters and files over 4 GB. " +
@@ -694,6 +754,7 @@
             this.capacityComboBox.FormattingEnabled = true;
             this.capacityComboBox.Location = new System.Drawing.Point(124, 71);
             this.capacityComboBox.Name = "capacityComboBox";
+            this.capacityComboBox.AccessibleName = "Target disc";
             this.capacityComboBox.Size = new System.Drawing.Size(220, 23);
             this.capacityComboBox.TabIndex = 6;
             this.toolTip.SetToolTip(this.capacityComboBox, "Warns when the image will not fit. It does not change the image or its file system, and fitting does not guarantee a burner or disc will accept it.");
@@ -713,6 +774,7 @@
             0,
             0});
             this.customCapacityUpDown.Name = "customCapacityUpDown";
+            this.customCapacityUpDown.AccessibleName = "Custom disc capacity in megabytes";
             this.customCapacityUpDown.Size = new System.Drawing.Size(80, 23);
             this.customCapacityUpDown.TabIndex = 7;
             this.customCapacityUpDown.ThousandsSeparator = true;
@@ -794,6 +856,7 @@
             this.filenameStatusLabel.AutoEllipsis = true;
             this.filenameStatusLabel.Location = new System.Drawing.Point(14, 38);
             this.filenameStatusLabel.Name = "filenameStatusLabel";
+            this.filenameStatusLabel.AccessibleName = "Filename preservation status";
             this.filenameStatusLabel.Size = new System.Drawing.Size(440, 18);
             this.filenameStatusLabel.TabIndex = 2;
             this.filenameStatusLabel.Text = "Select a source folder to check its file names.";
@@ -841,6 +904,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.outputTextBox.Location = new System.Drawing.Point(124, 24);
             this.outputTextBox.Name = "outputTextBox";
+            this.outputTextBox.AccessibleName = "ISO file";
             this.outputTextBox.Size = new System.Drawing.Size(516, 23);
             this.outputTextBox.TabIndex = 1;
             this.toolTip.SetToolTip(this.outputTextBox, "Where the ISO image file will be saved.");
@@ -910,6 +974,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar.Location = new System.Drawing.Point(14, 18);
             this.progressBar.Name = "progressBar";
+            this.progressBar.AccessibleName = "Progress";
+            this.progressBar.AccessibleDescription = "Progress of the current operation";
             this.progressBar.Size = new System.Drawing.Size(650, 22);
             this.progressBar.TabIndex = 0;
             //
@@ -930,6 +996,7 @@
             this.statusLabel.AutoEllipsis = true;
             this.statusLabel.Location = new System.Drawing.Point(14, 42);
             this.statusLabel.Name = "statusLabel";
+            this.statusLabel.AccessibleName = "Status";
             this.statusLabel.Size = new System.Drawing.Size(724, 18);
             this.statusLabel.TabIndex = 2;
             this.statusLabel.Text = "Ready.";
@@ -1156,6 +1223,12 @@
         private System.Windows.Forms.ToolStripMenuItem helpMenu;
         private System.Windows.Forms.ToolStripMenuItem shortcutsMenuItem;
         private System.Windows.Forms.ToolStripSeparator helpMenuSeparator;
+        private System.Windows.Forms.ToolStripMenuItem userGuideMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileSystemGuideMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem troubleshootingMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem releaseNotesMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem noticesMenuItem;
+        private System.Windows.Forms.ToolStripSeparator helpDocsSeparator;
         private System.Windows.Forms.ToolStripMenuItem aboutMenuItem;
         private System.Windows.Forms.Panel headerPanel;
         private System.Windows.Forms.PictureBox headerIcon;

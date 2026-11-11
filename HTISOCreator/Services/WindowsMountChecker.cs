@@ -129,7 +129,11 @@ namespace HTISOCreator.Services
 
         private static bool RunPowerShell(string script, out string output, out string error)
         {
-            string encoded = Convert.ToBase64String(Encoding.Unicode.GetBytes("$ProgressPreference='SilentlyContinue'; " + script));
+            // Errors are written as plain text: with -EncodedCommand and redirected output, PowerShell
+            // would otherwise write them to stderr as CLIXML, which is not readable in a message.
+            string wrapped = "$ProgressPreference='SilentlyContinue'; try { " + script +
+                             " } catch { [Console]::Error.WriteLine($_.Exception.Message); exit 1 }";
+            string encoded = Convert.ToBase64String(Encoding.Unicode.GetBytes(wrapped));
             var info = new ProcessStartInfo("powershell.exe", "-NoProfile -NonInteractive -ExecutionPolicy Bypass -EncodedCommand " + encoded)
             {
                 UseShellExecute = false,
@@ -163,10 +167,30 @@ namespace HTISOCreator.Services
             }
         }
 
-        private static string FirstLine(string text)
+        internal static string FirstLine(string text)
         {
-            string line = (text ?? string.Empty).Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? "unknown error";
+            text = text ?? string.Empty;
+            if (text.TrimStart().StartsWith("#< CLIXML", StringComparison.Ordinal))
+            {
+                text = FromClixml(text);
+            }
+
+            string line = text.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? "unknown error";
             return line.Trim();
+        }
+
+        /// <summary>Extracts the error text from PowerShell's CLIXML error stream (fallback only).</summary>
+        private static string FromClixml(string clixml)
+        {
+            var text = new StringBuilder();
+            foreach (System.Text.RegularExpressions.Match m in System.Text.RegularExpressions.Regex.Matches(clixml, "<S S=\"Error\">(.*?)</S>"))
+            {
+                text.Append(m.Groups[1].Value);
+            }
+
+            string decoded = System.Text.RegularExpressions.Regex.Replace(text.ToString(), "_x([0-9A-Fa-f]{4})_",
+                m => ((char)Convert.ToInt32(m.Groups[1].Value, 16)).ToString());
+            return System.Net.WebUtility.HtmlDecode(decoded);
         }
     }
 }

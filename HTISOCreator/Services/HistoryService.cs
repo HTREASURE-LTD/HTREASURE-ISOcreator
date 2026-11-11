@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -35,7 +35,7 @@ namespace HTISOCreator.Services
         }
 
         public static string DefaultHistoryFile =>
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "HT Software", "HT ISO Creator", "history.xml");
+            Path.Combine(Helpers.AppPaths.RoamingFolder, "history.xml");
 
         public string HistoryFile { get; }
 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
@@ -9,6 +9,8 @@ namespace HTISOCreator.Forms
 {
     public partial class AboutForm : Form
     {
+        private readonly ToolTip toolTip = new ToolTip();
+
         public AboutForm()
         {
             InitializeComponent();
@@ -18,8 +20,30 @@ namespace HTISOCreator.Forms
         private void AboutForm_Load(object sender, EventArgs e)
         {
             ThemeManager.Apply(this);
-            Version version = Assembly.GetExecutingAssembly().GetName().Version;
-            versionValueLabel.Text = string.Format("{0}.{1}.{2}", version.Major, version.Minor, version.Build);
+            versionValueLabel.Text = VersionText();
+            toolTip.SetToolTip(versionValueLabel, BuildDetails());
+        }
+
+        /// <summary>"1.0.0 (build 1.0.0.0, Release)".</summary>
+        internal static string VersionText()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            string product = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? assembly.GetName().Version.ToString(3);
+            string file = assembly.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version ?? assembly.GetName().Version.ToString();
+#if DEBUG
+            const string configuration = "Debug";
+#else
+            const string configuration = "Release";
+#endif
+            return product + " (build " + file + ", " + configuration + ")";
+        }
+
+        /// <summary>Program, runtime and operating system details for support requests.</summary>
+        internal static string BuildDetails()
+        {
+            return "Program: " + Assembly.GetExecutingAssembly().Location + Environment.NewLine +
+                   ".NET runtime: " + Environment.Version + (Environment.Is64BitProcess ? " (64-bit)" : " (32-bit)") + Environment.NewLine +
+                   "Windows: " + Environment.OSVersion.VersionString;
         }
 
         private void NoticesLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

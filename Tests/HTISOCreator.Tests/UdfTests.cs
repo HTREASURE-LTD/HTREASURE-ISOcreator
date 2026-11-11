@@ -349,6 +349,25 @@ namespace HTISOCreator.Tests
 
                 VerificationResult truncatedResult = Verify(truncated, null, folder.Source);
                 Assert.IsFalse(truncatedResult.Passed, truncatedResult.BuildReport());
+
+                // Volume recognition sequence wiped (found in Stage 4.3 QA): files are still readable
+                // through the anchor, but Windows refuses to mount it, so verification must fail.
+                using (var original = File.OpenRead(iso))
+                {
+                    Assert.IsTrue(UdfImageReader.HasNsrDescriptor(original));
+                }
+
+                string noVrs = folder.OutputFile("no-vrs.iso");
+                File.Copy(iso, noVrs);
+                using (var stream = new FileStream(noVrs, FileMode.Open))
+                {
+                    stream.Position = 16 * 2048;
+                    stream.Write(new byte[2048], 0, 2048);
+                }
+
+                VerificationResult noVrsResult = Verify(noVrs, null, folder.Source);
+                Assert.IsFalse(noVrsResult.Passed, noVrsResult.BuildReport());
+                StringAssert.Contains(noVrsResult.BuildReport(), "volume recognition sequence");
             }
         }
 
