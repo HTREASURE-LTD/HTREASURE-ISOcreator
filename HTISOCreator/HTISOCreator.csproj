@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net462</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>HTISOCreator</RootNamespace>
+    <AssemblyName>HTISOCreator</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <Nullable>disable</Nullable>
+    <ApplicationIcon>Resources\app.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Regenerate with Tools\Make-Icon.ps1. Embedded so forms can show every icon size. -->
+    <EmbeddedResource Include="Resources\app.ico" LogicalName="HTISOCreator.app.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- MIT licensed ISO 9660 / Joliet image writer and reader. -->
+    <PackageReference Include="DiscUtils.Iso9660" Version="0.16.13" />
+    <!-- Lets the project build even where the .NET 4.6.2 targeting pack is not installed. -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Late-bound (dynamic) calls to the Windows IMAPI2 file system image COM component. -->
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\THIRD-PARTY-NOTICES.txt" Link="THIRD-PARTY-NOTICES.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>
