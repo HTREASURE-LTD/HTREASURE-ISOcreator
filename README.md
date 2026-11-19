@@ -1,6 +1,6 @@
-# HT ISO Creator 1.0.0
+# HT ISO Creator 1.0.1
 
-**HT ISO Creator** is a Windows desktop application from **HTREASURE LTD**. It creates and verifies **data ISO images** (ISO 9660, Joliet and UDF) from folders.
+**HT ISO Creator** is a Windows desktop application from **HTREASURE LTD** ([www.htreasure.com](https://www.htreasure.com)). It creates and verifies **data ISO images** (ISO 9660, Joliet and UDF) from folders.
 
 - **Four file systems:** ISO 9660 + Joliet (default), UDF, ISO 9660 + Joliet + UDF hybrid, and ISO 9660 only.
 - **Long names and large files:** UDF keeps file names of up to 127 characters exactly and stores files of 4 GB and larger.
@@ -14,9 +14,9 @@
 ## Download and install
 | File | What it is |
 |---|---|
-| `HTISOCreator_Setup_v1.0.0.exe` | Windows installer (all users, or "for me only" without administrator rights) |
-| `HTISOCreator_Portable_v1.0.0.zip` | Portable version: extract and run, no installation |
-| `HTISOCreator_Documentation_v1.0.0.zip` | All documentation |
+| `HTISOCreator_Setup_v1.0.1.exe` | Windows installer (all users, or "for me only" without administrator rights) |
+| `HTISOCreator_Portable_v1.0.1.zip` | Portable version: extract and run, no installation |
+| `HTISOCreator_Documentation_v1.0.1.zip` | All documentation |
 | `HTISOCreator_Stage4_Complete.zip` | Complete source code |
 | `SHA256SUMS.txt` | SHA-256 checksums of the files above |
 
@@ -29,7 +29,7 @@
 | [docs/FILESYSTEM_GUIDE.md](docs/FILESYSTEM_GUIDE.md) | Choosing ISO 9660, Joliet or UDF |
 | [docs/INSTALLATION.md](docs/INSTALLATION.md) | Installer, portable version, upgrades, uninstalling |
 | [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | Messages and their solutions |
-| [docs/RELEASE_NOTES.md](docs/RELEASE_NOTES.md) | What's in 1.0.0, known limitations |
+| [docs/RELEASE_NOTES.md](docs/RELEASE_NOTES.md) | What's in 1.0.1, known limitations |
 | [docs/TEST_REPORT.md](docs/TEST_REPORT.md) | Tests run on this release and their results |
 | [CHANGELOG.md](CHANGELOG.md) | Changes by version |
 | [docs/THIRD_PARTY_NOTICES.md](docs/THIRD_PARTY_NOTICES.md) | Third-party components and licences |
@@ -65,7 +65,7 @@ In order, it:
 1. checks the version is consistent;
 2. does a clean Release build, with warnings treated as errors;
 3. runs all tests;
-4. creates the installer, the portable ZIP, the documentation ZIP and the source ZIP, plus `SHA256SUMS.txt`, in `artifacts\v1.0.0\`.
+4. creates the installer, the portable ZIP, the documentation ZIP and the source ZIP, plus `SHA256SUMS.txt`, in `artifacts\v1.0.1\`.
 
 ### Repository layout
 ```

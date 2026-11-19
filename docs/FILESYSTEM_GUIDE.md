@@ -1,4 +1,4 @@
-# HT ISO Creator 1.0.0 — File System Guide
+# HT ISO Creator 1.0.1 — File System Guide
 
 An ISO image stores its files in a **file system**: the rules for names, folder structure and file sizes. HT ISO Creator offers four. All of them create **data images**; none of them makes an image bootable.
 

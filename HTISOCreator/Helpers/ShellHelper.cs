@@ -5,6 +5,15 @@ namespace HTISOCreator.Helpers
 {
     public static class ShellHelper
     {
+        /// <summary>The publisher's website, as supplied by HTREASURE LTD.</summary>
+        public const string CompanyWebsite = "https://www.htreasure.com";
+
+        /// <summary>Opens a web address in the default browser.</summary>
+        public static void OpenWebPage(string url)
+        {
+            Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+        }
+
         /// <summary>Opens Explorer with <paramref name="filePath"/> selected.</summary>
         public static void ShowFileInExplorer(string filePath)
         {

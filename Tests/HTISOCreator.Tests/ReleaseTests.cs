@@ -16,26 +16,26 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HTISOCreator.Tests
 {
-    /// <summary>Stage 4: version 1.0.0 metadata, branding, data folders, upgrades, window placement and accessibility.</summary>
+    /// <summary>Stage 4: release version metadata, branding, data folders, upgrades, window placement and accessibility.</summary>
     [TestClass]
     public class ReleaseTests
     {
         private static readonly Assembly App = typeof(MainForm).Assembly;
 
         [TestMethod]
-        public void VersionAndPublisherMetadata_AreForRelease100()
+        public void VersionAndPublisherMetadata_AreForRelease101()
         {
-            Assert.AreEqual(new Version(1, 0, 0, 0), App.GetName().Version);
-            Assert.AreEqual("1.0.0.0", App.GetCustomAttribute<AssemblyFileVersionAttribute>().Version);
-            Assert.AreEqual("1.0.0", App.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion);
+            Assert.AreEqual(new Version(1, 0, 1, 0), App.GetName().Version);
+            Assert.AreEqual("1.0.1.0", App.GetCustomAttribute<AssemblyFileVersionAttribute>().Version);
+            Assert.AreEqual("1.0.1", App.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion);
             Assert.AreEqual("HTREASURE LTD", App.GetCustomAttribute<AssemblyCompanyAttribute>().Company);
             Assert.AreEqual("HT ISO Creator", App.GetCustomAttribute<AssemblyProductAttribute>().Product);
             StringAssert.Contains(App.GetCustomAttribute<AssemblyCopyrightAttribute>().Copyright, "HTREASURE LTD");
 
             // The metadata Windows shows in File Explorer (Properties > Details).
             FileVersionInfo exe = FileVersionInfo.GetVersionInfo(App.Location);
-            Assert.AreEqual("1.0.0", exe.ProductVersion);
-            Assert.AreEqual("1.0.0.0", exe.FileVersion);
+            Assert.AreEqual("1.0.1", exe.ProductVersion);
+            Assert.AreEqual("1.0.1.0", exe.FileVersion);
             Assert.AreEqual("HTREASURE LTD", exe.CompanyName);
             Assert.AreEqual("HT ISO Creator", exe.ProductName);
         }
@@ -50,10 +50,12 @@ namespace HTISOCreator.Tests
                     about.Show();
                     Application.DoEvents();
                     Assert.AreEqual("HTREASURE LTD", UiStateTests.Find<Label>(about, "developerValueLabel").Text);
-                    StringAssert.StartsWith(UiStateTests.Find<Label>(about, "versionValueLabel").Text, "1.0.0 (build 1.0.0.0, ");
+                    StringAssert.StartsWith(UiStateTests.Find<Label>(about, "versionValueLabel").Text, "1.0.1 (build 1.0.1.0, ");
                     StringAssert.Contains(UiStateTests.Find<Label>(about, "copyrightLabel").Text, "HTREASURE LTD");
                     StringAssert.Contains(UiStateTests.Find<Label>(about, "descriptionLabel").Text, "does not create bootable images");
                     StringAssert.Contains(UiStateTests.Find<Label>(about, "licenceLabel").Text, "IMAPI2");
+                    Assert.AreEqual("www.htreasure.com", UiStateTests.Find<LinkLabel>(about, "websiteLinkLabel").Text);
+                    Assert.AreEqual("https://www.htreasure.com", ShellHelper.CompanyWebsite);
                 }
 
                 await Task.CompletedTask;
@@ -134,38 +136,51 @@ namespace HTISOCreator.Tests
         }
 
         [TestMethod]
-        public void MainForm_RemembersWindowPlacement_AndIgnoresOffScreenPositions()
+        public void MainForm_RemembersWindowPosition_HasFixedSize_AndIgnoresOffScreenPositions()
         {
             using (var folder = new TestFolder())
             {
                 Rectangle area = Screen.PrimaryScreen.WorkingArea;
-                var wanted = new Rectangle(area.Left + 20, area.Top + 10, 820, Math.Min(area.Height - 20, 720));
-                var settings = new AppSettings
-                {
-                    RememberLastSource = false,
-                    Theme = AppTheme.Light,
-                    WindowLeft = wanted.Left,
-                    WindowTop = wanted.Top,
-                    WindowWidth = wanted.Width,
-                    WindowHeight = wanted.Height
-                };
                 string settingsFile = Path.Combine(folder.Root, "settings.xml");
                 UiStateTests.RunSta(async () =>
                 {
                     var service = new SettingsService(settingsFile, SettingsServiceTests.TestLog);
-                    service.Save(settings);
+                    service.Save(new AppSettings { RememberLastSource = false, Theme = AppTheme.Light });
+                    Size fixedSize;
                     using (var form = new MainForm(service) { ShowInTaskbar = false })
                     {
                         form.Show();
                         Application.DoEvents();
-                        Assert.AreEqual(wanted, form.Bounds, "Saved placement is restored");
-                        form.Bounds = new Rectangle(wanted.Left + 15, wanted.Top + 5, wanted.Width - 10, wanted.Height - 10);
+                        Assert.AreEqual(FormBorderStyle.FixedSingle, form.FormBorderStyle, "The window cannot be resized");
+                        Assert.IsFalse(form.MaximizeBox, "The window cannot be maximised");
+                        fixedSize = form.Size;
+                    }
+
+                    // A size and maximised state saved by 1.0.0 (when the window could be resized) are ignored; the position is kept.
+                    var wanted = new Point(area.Left + 20, area.Top + 10);
+                    service.Save(new AppSettings
+                    {
+                        RememberLastSource = false,
+                        Theme = AppTheme.Light,
+                        WindowLeft = wanted.X,
+                        WindowTop = wanted.Y,
+                        WindowWidth = fixedSize.Width + 100,
+                        WindowHeight = fixedSize.Height + 50,
+                        WindowMaximized = true
+                    });
+                    using (var form = new MainForm(service) { ShowInTaskbar = false })
+                    {
+                        form.Show();
+                        Application.DoEvents();
+                        Assert.AreEqual(FormWindowState.Normal, form.WindowState);
+                        Assert.AreEqual(new Rectangle(wanted, fixedSize), form.Bounds, "Saved position restored at the fixed size");
+                        form.Location = new Point(wanted.X + 15, wanted.Y + 5);
                         form.Close();
                     }
 
                     AppSettings saved = service.Load();
-                    Assert.AreEqual(wanted.Left + 15, saved.WindowLeft);
-                    Assert.AreEqual(wanted.Width - 10, saved.WindowWidth);
+                    Assert.AreEqual(wanted.X + 15, saved.WindowLeft);
+                    Assert.AreEqual(wanted.Y + 5, saved.WindowTop);
                     Assert.IsFalse(saved.WindowMaximized);
 
                     saved.WindowLeft = -30000;
@@ -272,6 +287,70 @@ namespace HTISOCreator.Tests
                         var help = (ToolStripMenuItem)form.MainMenuStrip.Items.Cast<ToolStripItem>().Single(i => i.Name == "helpMenu");
                         CollectionAssert.IsSubsetOf(new[] { "USER_GUIDE.md", "FILESYSTEM_GUIDE.md", "TROUBLESHOOTING.md", "RELEASE_NOTES.md", "THIRD_PARTY_NOTICES.md" },
                             help.DropDownItems.OfType<ToolStripMenuItem>().Select(i => i.Tag as string).Where(t => t != null).ToList());
+                    }
+
+                    await Task.CompletedTask;
+                });
+            }
+        }
+
+        [TestMethod]
+        public void MainForm_MenuIsBelowTheHeader_AndHeaderLinksToTheWebsite()
+        {
+            using (var folder = new TestFolder())
+            {
+                UiStateTests.RunSta(async () =>
+                {
+                    using (MainForm form = UiStateTests.OpenForm(folder))
+                    {
+                        Panel header = UiStateTests.Find<Panel>(form, "headerPanel");
+                        MenuStrip menu = form.MainMenuStrip;
+                        Assert.AreEqual(0, header.Top, "The banner with the logo is at the top of the window");
+                        Assert.AreEqual(header.Bottom, menu.Top, "File, Tools and Help are directly below the banner");
+                        CollectionAssert.AreEqual(new[] { "fileMenu", "toolsMenu", "helpMenu" },
+                            menu.Items.Cast<ToolStripItem>().Select(i => i.Name).ToArray());
+
+                        int firstGroup = form.Controls.OfType<GroupBox>().Min(g => g.Top);
+                        Assert.IsTrue(firstGroup >= menu.Bottom, "The first group starts below the menu");
+
+                        LinkLabel website = UiStateTests.Find<LinkLabel>(form, "websiteLinkLabel");
+                        Assert.AreSame(header, website.Parent);
+                        Assert.AreEqual("www.htreasure.com", website.Text);
+                        Assert.IsTrue(header.ClientRectangle.Contains(website.Bounds), "The link is inside the banner");
+                        Assert.IsFalse(website.Bounds.IntersectsWith(UiStateTests.Find<Label>(form, "subHeaderLabel").Bounds));
+                        Assert.IsTrue(TextRenderer.MeasureText(website.Text, website.Font).Width <= website.Width, "The link text fits");
+                    }
+
+                    await Task.CompletedTask;
+                });
+            }
+        }
+
+        [TestMethod]
+        public void MainForm_OnAScreenTooSmall_FitsAndScrolls_WithoutOverlaps()
+        {
+            using (var folder = new TestFolder())
+            {
+                UiStateTests.RunSta(async () =>
+                {
+                    using (MainForm form = UiStateTests.OpenForm(folder))
+                    {
+                        Size full = form.ClientSize;
+                        Rectangle small = new Rectangle(0, 0, form.Width - 120, form.Height - 200);
+                        form.FitToScreen(small);
+                        Application.DoEvents();
+
+                        Assert.IsTrue(form.Width <= small.Width && form.Height <= small.Height, "The window fits the screen");
+                        Assert.AreEqual(small.Location, form.Location);
+                        Assert.IsTrue(form.AutoScroll, "The window scrolls");
+                        Assert.IsTrue(form.DisplayRectangle.Width >= full.Width && form.DisplayRectangle.Height >= full.Height,
+                            "The scrollable area keeps the full layout");
+                        Button close = UiStateTests.Find<Button>(form, "closeButton");
+                        Assert.IsTrue(form.DisplayRectangle.Contains(close.Bounds), "Close can be reached by scrolling");
+
+                        var problems = new List<string>();
+                        UiStateTests.CheckLayout(form, problems);
+                        Assert.AreEqual(0, problems.Count, string.Join("\n", problems));
                     }
 
                     await Task.CompletedTask;

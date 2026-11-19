@@ -1,4 +1,4 @@
-# Third-Party Notices — HT ISO Creator 1.0.0
+# Third-Party Notices — HT ISO Creator 1.0.1
 
 HT ISO Creator is Copyright © 2026 HTREASURE LTD. It includes or uses the components below.
 

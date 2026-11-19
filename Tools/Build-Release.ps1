@@ -27,7 +27,7 @@
     powershell -ExecutionPolicy Bypass -File Tools\Build-Release.ps1 -RefreshDocs
 #>
 param(
-    [string]$Version = "1.0.0",
+    [string]$Version = "1.0.1",
     [switch]$SkipTests,
     [switch]$RefreshDocs,
     [string]$Iscc

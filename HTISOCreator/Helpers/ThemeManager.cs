@@ -157,6 +157,13 @@ namespace HTISOCreator.Helpers
             {
                 child.BackColor = palette.HeaderBack;
                 child.ForeColor = DimTag.Equals(child.Tag) ? palette.HeaderDimText : palette.HeaderText;
+                var link = child as LinkLabel;
+                if (link != null)
+                {
+                    link.LinkColor = palette.HeaderText;
+                    link.ActiveLinkColor = palette.HeaderText;
+                    link.VisitedLinkColor = palette.HeaderText;
+                }
             }
         }
 

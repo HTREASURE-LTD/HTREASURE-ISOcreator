@@ -1,12 +1,20 @@
-# HT ISO Creator 1.0.0 — Release Notes
+# HT ISO Creator 1.0.1 — Release Notes
 
 **Publisher:** HTREASURE LTD
-**Version:** 1.0.0 (file version 1.0.0.0)
+**Version:** 1.0.1 (file version 1.0.1.0)
+**Website:** [www.htreasure.com](https://www.htreasure.com)
 **Requirements:** Windows 10 or Windows 11, .NET Framework 4.6.2 or later
 
-HT ISO Creator 1.0.0 is the first public release. It creates **data ISO images** from folders and verifies them. It does not create bootable images.
+HT ISO Creator creates **data ISO images** from folders and verifies them. It does not create bootable images. Version 1.0.1 is a small update to 1.0.0, the first public release.
 
-## Highlights
+## New in 1.0.1
+- **Fixed-size main window:** it can no longer be resized or maximised, and it still opens where you last left it. On a screen too small for it (very high display scaling), it fits the screen and scrolls.
+- **Menu below the banner:** File, Tools and Help sit directly below the HT ISO Creator logo and title.
+- **HTREASURE LTD website:** a [www.htreasure.com](https://www.htreasure.com) link in the main window and the About window, and in Windows' installed apps list.
+
+Image creation and verification are unchanged from 1.0.0.
+
+## Features
 - **Four file systems:**
   - **ISO 9660 + Joliet** (default) and **ISO 9660 only**, written by DiscUtils.
   - **UDF** and **ISO 9660 + Joliet + UDF**, written by the IMAPI2 component built into Windows.
@@ -24,17 +32,19 @@ HT ISO Creator 1.0.0 is the first public release. It creates **data ISO images**
   - The source folder is never modified.
 - **Target disc check** for CD, DVD, DVD Dual Layer, Blu-ray and custom sizes.
 - **ISO Information viewer** and **Creation History**.
-- **Light and dark themes.** The window keeps a correct layout at 100%, 125% and 150% display scaling, and remembers its size and position.
+- **Light and dark themes.** The window keeps a correct layout at 100%, 125% and 150% display scaling, and remembers its position.
 - **Windows installer** (per-user or all users) and **portable** version.
 
 ## Installing
-See [INSTALLATION.md](INSTALLATION.md). Run `HTISOCreator_Setup_v1.0.0.exe`, or extract `HTISOCreator_Portable_v1.0.0.zip`. Check downloads against `SHA256SUMS.txt`.
+See [INSTALLATION.md](INSTALLATION.md). Run `HTISOCreator_Setup_v1.0.1.exe`, or extract `HTISOCreator_Portable_v1.0.1.zip`. Check downloads against `SHA256SUMS.txt`.
 
-## Upgrading from development builds
-Settings and history from the Stage 1–3 development builds (`%APPDATA%\HT Software\HT ISO Creator`) are copied automatically the first time you start 1.0.0.
+## Upgrading
+**From 1.0.0:** run the 1.0.1 installer, or replace the portable folder. Settings and history are kept. A window size saved by 1.0.0 is no longer used, because the window has a fixed size.
+
+**From development builds:** Settings and history from the Stage 1–3 development builds (`%APPDATA%\HT Software\HT ISO Creator`) are copied automatically the first time you start 1.0.0 or later.
 
 ## Known limitations
-- **No bootable images:** HT ISO Creator 1.0.0 makes data images only.
+- **No bootable images:** HT ISO Creator 1.0.1 makes data images only.
 - **No Rock Ridge:** Unix permissions and symbolic links aren't supported.
 - **UDF images are UDF 1.02.** In hybrid images, the extra Joliet names written by Windows IMAPI2 can be up to about 110 characters (standard Joliet allows 64), and the ISO 9660 names are 8.3-style. Modern systems read the UDF names.
 - **Names over 64 characters** (ISO 9660 + Joliet) or **127 characters** (UDF) can't be stored exactly. Strict Mode refuses them; Compatibility Mode shortens them after you confirm.

@@ -450,15 +450,17 @@ namespace HTISOCreator.Tests
         }
 
         /// <summary>Visible siblings must not overlap and must lie inside their parent.</summary>
-        private static void CheckLayout(Control parent, List<string> problems)
+        internal static void CheckLayout(Control parent, List<string> problems)
         {
             Control[] children = parent.Controls.Cast<Control>().Where(c => c.Visible && !(c is ToolStrip)).ToArray();
             Rectangle client = parent.ClientRectangle;
+            Rectangle[] menus = parent.Controls.OfType<MenuStrip>().Where(m => m.Visible).Select(m => m.Bounds).ToArray();
             if (parent is Form)
             {
-                int top = parent.Controls.OfType<MenuStrip>().Sum(m => m.Height);
+                // The menu sits below the header banner, so it is checked as an area nothing may overlap.
+                client = parent.DisplayRectangle;
                 int bottom = parent.Controls.OfType<StatusStrip>().Sum(s => s.Height);
-                client = new Rectangle(0, top, client.Width, client.Height - top - bottom);
+                client = new Rectangle(client.X, client.Y, client.Width, client.Height - bottom);
             }
 
             foreach (Control child in children)
@@ -466,6 +468,11 @@ namespace HTISOCreator.Tests
                 if (!client.Contains(child.Bounds))
                 {
                     problems.Add(parent.Name + "/" + child.Name + " " + child.Bounds + " is outside " + client);
+                }
+
+                foreach (Rectangle menu in menus.Where(m => m.IntersectsWith(child.Bounds)))
+                {
+                    problems.Add(parent.Name + "/" + child.Name + " " + child.Bounds + " overlaps the menu " + menu);
                 }
 
                 // Fixed-size labels must be wide enough for their text unless they ellipsize it.

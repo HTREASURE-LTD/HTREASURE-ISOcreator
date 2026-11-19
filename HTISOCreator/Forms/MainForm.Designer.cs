@@ -78,6 +78,7 @@
             this.headerPanel = new System.Windows.Forms.Panel();
             this.headerIcon = new System.Windows.Forms.PictureBox();
             this.headerLabel = new System.Windows.Forms.Label();
+            this.websiteLinkLabel = new System.Windows.Forms.LinkLabel();
             this.subHeaderLabel = new System.Windows.Forms.Label();
             this.sourceGroupBox = new System.Windows.Forms.GroupBox();
             this.sourceLabel = new System.Windows.Forms.Label();
@@ -152,7 +153,7 @@
             this.fileMenu,
             this.toolsMenu,
             this.helpMenu});
-            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Location = new System.Drawing.Point(0, 44);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(784, 24);
             this.menuStrip.TabIndex = 0;
@@ -390,8 +391,9 @@
             this.headerPanel.Controls.Add(this.headerIcon);
             this.headerPanel.Controls.Add(this.headerLabel);
             this.headerPanel.Controls.Add(this.subHeaderLabel);
+            this.headerPanel.Controls.Add(this.websiteLinkLabel);
             this.headerPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.headerPanel.Location = new System.Drawing.Point(0, 24);
+            this.headerPanel.Location = new System.Drawing.Point(0, 0);
             this.headerPanel.Name = "headerPanel";
             this.headerPanel.Size = new System.Drawing.Size(784, 44);
             this.headerPanel.TabIndex = 1;
@@ -425,6 +427,19 @@
             this.subHeaderLabel.TabIndex = 2;
             this.subHeaderLabel.Tag = "dim";
             this.subHeaderLabel.Text = "Create a standard ISO image from any folder. Tip: drag a folder onto this window.";
+            //
+            // websiteLinkLabel
+            //
+            this.websiteLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.websiteLinkLabel.Location = new System.Drawing.Point(608, 13);
+            this.websiteLinkLabel.Name = "websiteLinkLabel";
+            this.websiteLinkLabel.Size = new System.Drawing.Size(160, 18);
+            this.websiteLinkLabel.TabIndex = 3;
+            this.websiteLinkLabel.TabStop = true;
+            this.websiteLinkLabel.Text = "www.htreasure.com";
+            this.websiteLinkLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip.SetToolTip(this.websiteLinkLabel, "Open the HTREASURE LTD website (https://www.htreasure.com)");
+            this.websiteLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.WebsiteLinkLabel_LinkClicked);
             //
             // sourceGroupBox
             //
@@ -1123,6 +1138,7 @@
             this.formatStripLabel});
             this.statusStrip.Location = new System.Drawing.Point(0, 628);
             this.statusStrip.Name = "statusStrip";
+            this.statusStrip.SizingGrip = false;
             this.statusStrip.Size = new System.Drawing.Size(784, 22);
             this.statusStrip.TabIndex = 11;
             //
@@ -1165,13 +1181,14 @@
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.openFolderButton);
             this.Controls.Add(this.closeButton);
-            this.Controls.Add(this.headerPanel);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
+            this.Controls.Add(this.headerPanel);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
-            this.MinimumSize = new System.Drawing.Size(720, 689);
+            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HT ISO Creator";
@@ -1233,6 +1250,7 @@
         private System.Windows.Forms.Panel headerPanel;
         private System.Windows.Forms.PictureBox headerIcon;
         private System.Windows.Forms.Label headerLabel;
+        private System.Windows.Forms.LinkLabel websiteLinkLabel;
         private System.Windows.Forms.Label subHeaderLabel;
         private System.Windows.Forms.GroupBox sourceGroupBox;
         private System.Windows.Forms.Label sourceLabel;

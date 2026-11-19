@@ -1,4 +1,4 @@
-# HT ISO Creator 1.0.0 — Troubleshooting
+# HT ISO Creator 1.0.1 — Troubleshooting
 
 Most messages explain the problem and what to do. Error messages also include a short **reference** (for example `8c03145c`). Search for it in the log (**Tools > View Today's Log**) to see the technical details. Logs are kept for 30 days in `%LOCALAPPDATA%\HTREASURE LTD\HT ISO Creator\Logs`.
 
@@ -18,7 +18,7 @@ Most messages explain the problem and what to do. Error messages also include a 
 | **"A source file changed while the image was being created"** | Something modified a file during creation. The partial image was removed. Close the program that is changing it and try again. |
 | **"The UDF formats use the Windows IMAPI2 component, which is not available"** | The IMAPI2 component of Windows is missing or disabled (rare; some reduced Windows editions). Use *ISO 9660 + Joliet*, or restore the component (Windows Update or `sfc /scannow`). |
 | **"Windows IMAPI2 could not lay out the image: … (HRESULT 0x…)"** | Windows rejected the layout. Note the HRESULT and the reference from the log. Trying *ISO 9660 + Joliet* or *UDF* instead of the hybrid often helps. |
-| **The window is larger than my screen** | At high display scaling on small screens the window is shrunk to fit; resize or maximise it. It remembers its size and position. |
+| **The window is larger than my screen** | The main window has a fixed size. At high display scaling on a small screen it is made to fit the screen and gets scroll bars, so every control can still be reached. It remembers its position. |
 | **Creation was interrupted (crash or power loss)** | On the next start HT ISO Creator removes the unfinished file, restores an ISO it was replacing, and tells you what it did. |
 
 ## Verification
@@ -41,7 +41,7 @@ Most messages explain the problem and what to do. Error messages also include a 
 | Symptom | Solution |
 |---|---|
 | **"HT ISO Creator needs Microsoft .NET Framework 4.6.2 or later"** | Install .NET Framework 4.8 from Windows Update or Microsoft, then run the installer again. |
-| **"Windows protected your PC" (SmartScreen)** | Version 1.0.0 is not digitally signed. Check the file against `SHA256SUMS.txt` (see [INSTALLATION.md](INSTALLATION.md)), then choose **More info > Run anyway**. |
+| **"Windows protected your PC" (SmartScreen)** | Version 1.0.1 is not digitally signed. Check the file against `SHA256SUMS.txt` (see [INSTALLATION.md](INSTALLATION.md)), then choose **More info > Run anyway**. |
 | **"Setup has detected that HT ISO Creator is currently running"** | Close every HT ISO Creator window, then click **OK**. A silent installation stops with exit code 1 in this case; close the program and run it again. |
 | **Settings are gone after reinstalling** | Settings are kept on uninstall unless their folder was deleted: `%APPDATA%\HTREASURE LTD\HT ISO Creator`. |
 

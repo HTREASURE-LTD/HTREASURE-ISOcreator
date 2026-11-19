@@ -34,6 +34,8 @@
             this.developerValueLabel = new System.Windows.Forms.Label();
             this.versionLabel = new System.Windows.Forms.Label();
             this.versionValueLabel = new System.Windows.Forms.Label();
+            this.websiteLabel = new System.Windows.Forms.Label();
+            this.websiteLinkLabel = new System.Windows.Forms.LinkLabel();
             this.descriptionLabel = new System.Windows.Forms.Label();
             this.copyrightLabel = new System.Windows.Forms.Label();
             this.licenceLabel = new System.Windows.Forms.Label();
@@ -87,11 +89,31 @@
             this.versionValueLabel.Name = "versionValueLabel";
             this.versionValueLabel.Size = new System.Drawing.Size(37, 15);
             this.versionValueLabel.TabIndex = 4;
-            this.versionValueLabel.Text = "1.0.0";
+            this.versionValueLabel.Text = "1.0.1";
+            //
+            // websiteLabel
+            //
+            this.websiteLabel.AutoSize = true;
+            this.websiteLabel.Location = new System.Drawing.Point(20, 98);
+            this.websiteLabel.Name = "websiteLabel";
+            this.websiteLabel.Size = new System.Drawing.Size(52, 15);
+            this.websiteLabel.TabIndex = 10;
+            this.websiteLabel.Text = "Website:";
+            //
+            // websiteLinkLabel
+            //
+            this.websiteLinkLabel.AutoSize = true;
+            this.websiteLinkLabel.Location = new System.Drawing.Point(100, 98);
+            this.websiteLinkLabel.Name = "websiteLinkLabel";
+            this.websiteLinkLabel.Size = new System.Drawing.Size(108, 15);
+            this.websiteLinkLabel.TabIndex = 11;
+            this.websiteLinkLabel.TabStop = true;
+            this.websiteLinkLabel.Text = "www.htreasure.com";
+            this.websiteLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.WebsiteLinkLabel_LinkClicked);
             //
             // descriptionLabel
             //
-            this.descriptionLabel.Location = new System.Drawing.Point(20, 104);
+            this.descriptionLabel.Location = new System.Drawing.Point(20, 126);
             this.descriptionLabel.Name = "descriptionLabel";
             this.descriptionLabel.Size = new System.Drawing.Size(420, 48);
             this.descriptionLabel.TabIndex = 5;
@@ -100,7 +122,7 @@
             // copyrightLabel
             //
             this.copyrightLabel.AutoSize = true;
-            this.copyrightLabel.Location = new System.Drawing.Point(20, 160);
+            this.copyrightLabel.Location = new System.Drawing.Point(20, 182);
             this.copyrightLabel.Name = "copyrightLabel";
             this.copyrightLabel.Size = new System.Drawing.Size(232, 15);
             this.copyrightLabel.TabIndex = 6;
@@ -109,7 +131,7 @@
             // licenceLabel
             //
             this.licenceLabel.ForeColor = System.Drawing.Color.DimGray;
-            this.licenceLabel.Location = new System.Drawing.Point(20, 184);
+            this.licenceLabel.Location = new System.Drawing.Point(20, 206);
             this.licenceLabel.Name = "licenceLabel";
             this.licenceLabel.Size = new System.Drawing.Size(420, 32);
             this.licenceLabel.TabIndex = 7;
@@ -119,7 +141,7 @@
             // noticesLinkLabel
             //
             this.noticesLinkLabel.AutoSize = true;
-            this.noticesLinkLabel.Location = new System.Drawing.Point(20, 216);
+            this.noticesLinkLabel.Location = new System.Drawing.Point(20, 238);
             this.noticesLinkLabel.Name = "noticesLinkLabel";
             this.noticesLinkLabel.Size = new System.Drawing.Size(135, 15);
             this.noticesLinkLabel.TabIndex = 8;
@@ -130,7 +152,7 @@
             // okButton
             //
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(350, 244);
+            this.okButton.Location = new System.Drawing.Point(350, 266);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(90, 30);
             this.okButton.TabIndex = 9;
@@ -145,12 +167,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.okButton;
-            this.ClientSize = new System.Drawing.Size(460, 290);
+            this.ClientSize = new System.Drawing.Size(460, 312);
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.developerLabel);
             this.Controls.Add(this.developerValueLabel);
             this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.versionValueLabel);
+            this.Controls.Add(this.websiteLabel);
+            this.Controls.Add(this.websiteLinkLabel);
             this.Controls.Add(this.descriptionLabel);
             this.Controls.Add(this.copyrightLabel);
             this.Controls.Add(this.licenceLabel);
@@ -177,6 +201,8 @@
         private System.Windows.Forms.Label developerValueLabel;
         private System.Windows.Forms.Label versionLabel;
         private System.Windows.Forms.Label versionValueLabel;
+        private System.Windows.Forms.Label websiteLabel;
+        private System.Windows.Forms.LinkLabel websiteLinkLabel;
         private System.Windows.Forms.Label descriptionLabel;
         private System.Windows.Forms.Label copyrightLabel;
         private System.Windows.Forms.Label licenceLabel;

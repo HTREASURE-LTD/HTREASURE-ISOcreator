@@ -1,4 +1,4 @@
-# HT ISO Creator 1.0.0 — Installation
+# HT ISO Creator 1.0.1 — Installation
 
 ## Requirements
 | | |
@@ -10,7 +10,7 @@
 | Administrator rights | Needed only to install for all users. "Install for me only" and the portable version don't need them. |
 
 ## Option 1: Installer (recommended)
-1. Run `HTISOCreator_Setup_v1.0.0.exe`.
+1. Run `HTISOCreator_Setup_v1.0.1.exe`.
 2. Choose **Install for all users** (needs administrator rights; installs to `C:\Program Files\HT ISO Creator`) or **Install for me only** (no administrator rights; installs to `%LOCALAPPDATA%\Programs\HT ISO Creator`).
 3. Follow the wizard. You can change the folder, and optionally create a desktop shortcut.
 4. HT ISO Creator appears in the Start menu.
@@ -22,8 +22,8 @@ The installer:
 
 ### Silent installation (for administrators)
 ```
-HTISOCreator_Setup_v1.0.0.exe /VERYSILENT /SUPPRESSMSGBOXES /ALLUSERS
-HTISOCreator_Setup_v1.0.0.exe /VERYSILENT /SUPPRESSMSGBOXES /CURRENTUSER
+HTISOCreator_Setup_v1.0.1.exe /VERYSILENT /SUPPRESSMSGBOXES /ALLUSERS
+HTISOCreator_Setup_v1.0.1.exe /VERYSILENT /SUPPRESSMSGBOXES /CURRENTUSER
 ```
 Add `/TASKS="desktopicon"` for a desktop shortcut, and `/DIR="D:\Tools\HT ISO Creator"` for another folder.
 
@@ -38,18 +38,18 @@ Your settings and history are **kept**, so a later reinstall remembers them. To 
 - `%LOCALAPPDATA%\HTREASURE LTD\HT ISO Creator` (logs)
 
 ## Option 2: Portable version
-1. Extract `HTISOCreator_Portable_v1.0.0.zip` to any folder you can write to, for example `D:\Tools`.
+1. Extract `HTISOCreator_Portable_v1.0.1.zip` to any folder you can write to, for example `D:\Tools`.
 2. Run `HTISOCreator.exe`.
 
 Nothing is installed and no administrator rights are needed. Keep all the files together: `HTISOCreator.exe`, `HTISOCreator.exe.config` and the three `DiscUtils.*.dll` files. Settings and history are stored in the same per-user folders as the installed version. To remove the portable version, delete its folder.
 
-If Windows shows "Windows protected your PC" (SmartScreen) for a downloaded file, check it against `SHA256SUMS.txt` (see below). Then choose **More info > Run anyway** only if the checksum matches. Version 1.0.0 is not digitally signed.
+If Windows shows "Windows protected your PC" (SmartScreen) for a downloaded file, check it against `SHA256SUMS.txt` (see below). Then choose **More info > Run anyway** only if the checksum matches. Version 1.0.1 is not digitally signed.
 
 ## Checking a download
 Each release includes `SHA256SUMS.txt`. In PowerShell, run the following and compare the result with the line for that file:
 ```
-Get-FileHash .\HTISOCreator_Setup_v1.0.0.exe -Algorithm SHA256
+Get-FileHash .\HTISOCreator_Setup_v1.0.1.exe -Algorithm SHA256
 ```
 
 ## Upgrading from a development build (Stages 1–3)
-Development builds stored their data in `%APPDATA%\HT Software\HT ISO Creator`. Version 1.0.0 copies your settings and history from there the first time it starts. The old folder is not changed or deleted.
+Development builds stored their data in `%APPDATA%\HT Software\HT ISO Creator`. Version 1.0.0 and later copy your settings and history from there the first time it starts. The old folder is not changed or deleted.

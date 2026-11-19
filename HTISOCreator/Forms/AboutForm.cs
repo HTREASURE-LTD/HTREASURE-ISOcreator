@@ -24,7 +24,7 @@ namespace HTISOCreator.Forms
             toolTip.SetToolTip(versionValueLabel, BuildDetails());
         }
 
-        /// <summary>"1.0.0 (build 1.0.0.0, Release)".</summary>
+        /// <summary>"1.0.1 (build 1.0.1.0, Release)".</summary>
         internal static string VersionText()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -64,6 +64,19 @@ namespace HTISOCreator.Forms
             {
                 LoggingService.Instance.Error("Could not open third-party notices", ex);
                 MessageBox.Show(this, "The third-party notices file could not be opened.", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void WebsiteLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                ShellHelper.OpenWebPage(ShellHelper.CompanyWebsite);
+            }
+            catch (Exception ex)
+            {
+                LoggingService.Instance.Error("Could not open " + ShellHelper.CompanyWebsite, ex);
+                MessageBox.Show(this, "The website could not be opened. You can visit it at:\n\n" + ShellHelper.CompanyWebsite, Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

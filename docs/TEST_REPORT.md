@@ -1,6 +1,31 @@
-# HT ISO Creator 1.0.0 — Test Report
+# HT ISO Creator 1.0.1 — Test Report
 
-This report lists the tests that were **actually run** for version 1.0.0, with their results. Anything not tested is listed under [Not tested and open issues](#not-tested-and-open-issues).
+This report lists the tests that were **actually run**, with their results: first for version 1.0.1, then the full quality assurance of version 1.0.0, which 1.0.1 builds on. Anything not tested is listed under [Not tested and open issues](#not-tested-and-open-issues).
+
+## Version 1.0.1
+1.0.1 changes only the main window (fixed size, menu below the banner, website link), the About window and the installer's publisher website. Image creation and verification code is unchanged from 1.0.0.
+
+| | |
+|---|---|
+| Version | 1.0.1 (file version 1.0.1.0), Release build, .NET Framework 4.6.2 target |
+| Test date | 19 November 2026, on the same PC and standard user account as below |
+
+| Test | Result |
+|---|---|
+| **Release build** (`Tools\Build-Release.ps1 -Version 1.0.1`) | Clean Release build, 0 warnings. **181 of 181 automated tests passed** before any package was made. |
+| **New and changed automated tests** | The window cannot be resized or maximised; a size and maximised state saved by 1.0.0 are ignored while the position is kept; the menu is directly below the banner and above every group; the website link is inside the banner and doesn't overlap the subtitle; on a screen too small for the window it fits, scrolls and nothing overlaps; the About window shows the website; layout at 100–200% scaling. |
+| **Upgrade from the published 1.0.0 installer** (per user) | 1.0.0 installed (exit code 0), then the 1.0.1 setup over it (exit code 0). Same folder, one uninstall entry, now 1.0.1 with the publisher website https://www.htreasure.com. **Settings file byte-for-byte unchanged.** Every installed file identical to the release files. |
+| **Window after the upgrade** | The 1.0.0 settings asked for 1100 × 900, maximised. 1.0.1 opened at the saved position, at its fixed size, not maximised, with no resizable border and no Maximise button. |
+| **Reinstall while running, uninstall** | Setup refused while the program was running (exit code 1, program kept running). Uninstall: exit code 0; files, shortcuts and the per-user entry removed; **settings and history kept**. |
+| **Portable ZIP** | Extracted to `Portable 1.0.1 Café`. Started (fixed-size window), exit code 0, wrote nothing into its folder. |
+| **Create and verify, all four file systems**, using the program from the portable ZIP on the project source (98 files) | All 4 images created, size exactly as predicted, and verified with SHA-256 and the Windows mount. |
+| **Packages** | `SHA256SUMS.txt` matched every package; installer product 1.0.1 by HTREASURE LTD, not signed; source ZIP without build output or `.git`. |
+
+**Note:** the test PC also has an all-users 1.0.0 installation in `C:\Program Files\HT ISO Creator` (installed by the owner, not by these tests). It was not changed. Upgrading it needs the 1.0.1 setup run with administrator rights.
+
+The tests in sections 1–6 below were run on **version 1.0.0**.
+
+## Version 1.0.0
 
 | | |
 |---|---|
@@ -167,11 +192,12 @@ After the fixes, every real-data, edge-case and damage test in sections 2–4 wa
 | **200% display scaling** | Checked only by automated layout tests. A 1080-pixel screen is too small for the window at 200%, so it is shrunk to fit. |
 | **Code signing** | The program and installer are **not digitally signed**, so SmartScreen may warn. Users are told to check `SHA256SUMS.txt`. |
 | **Licence** | No end-user licence has been chosen. The README says "All rights reserved". Third-party licences are in `THIRD_PARTY_NOTICES.md`. |
-| **Contact and support details** | None are included; HTREASURE LTD hasn't supplied any. |
+| **Contact and support details** | Version 1.0.1 includes the HTREASURE LTD website (www.htreasure.com). No e-mail or telephone support details have been supplied. |
+| **Fixed-size window on a real high-DPI small screen** | The fit-and-scroll behaviour was tested by an automated test with a simulated small screen, not on a real one. |
 | **Cancelling UDF creation** | Takes effect after IMAPI2's layout step (about 3 s per 1,000 files). This is documented. |
 
 ### Checklist for a clean Windows 10 or Windows 11 machine
-1. Copy `HTISOCreator_Setup_v1.0.0.exe` and `SHA256SUMS.txt`. Check the hash with `Get-FileHash`.
+1. Copy `HTISOCreator_Setup_v1.0.1.exe` and `SHA256SUMS.txt`. Check the hash with `Get-FileHash`.
 2. Install "for all users" from an administrator account. Confirm the Start Menu shortcut, the uninstall entry and that the program starts.
 3. Create an ISO 9660 + Joliet image and a UDF image of any folder, with *Verify* and the SHA-256 check on. Confirm "Verification passed".
 4. Install again over it (upgrade), then uninstall. Confirm the settings in `%APPDATA%\HTREASURE LTD\HT ISO Creator` remain.

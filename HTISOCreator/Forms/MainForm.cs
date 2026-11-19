@@ -171,7 +171,8 @@ namespace HTISOCreator.Forms
 
         /// <summary>
         /// Puts the window back where it was last closed, if that place is still on a screen (monitors
-        /// may have been removed or rearranged since). Sizes are never smaller than the minimum.
+        /// may have been removed or rearranged since). The window has a fixed size, so only the position
+        /// is restored; a saved size or maximised state from an earlier version is ignored.
         /// </summary>
         private void RestoreWindowPlacement()
         {
@@ -180,8 +181,7 @@ namespace HTISOCreator.Forms
                 return;
             }
 
-            var saved = new Rectangle(_settings.WindowLeft, _settings.WindowTop,
-                Math.Max(_settings.WindowWidth, MinimumSize.Width), Math.Max(_settings.WindowHeight, MinimumSize.Height));
+            var saved = new Rectangle(_settings.WindowLeft, _settings.WindowTop, Width, Height);
             bool visible = Screen.AllScreens.Any(screen =>
             {
                 Rectangle overlap = Rectangle.Intersect(screen.WorkingArea, saved);
@@ -194,14 +194,10 @@ namespace HTISOCreator.Forms
             }
 
             StartPosition = FormStartPosition.Manual;
-            Bounds = saved;
-            if (_settings.WindowMaximized)
-            {
-                WindowState = FormWindowState.Maximized;
-            }
+            Location = saved.Location;
         }
 
-        /// <summary>Records the normal-state position and size, and whether the window is maximised.</summary>
+        /// <summary>Records the window position (and its fixed size, which is not restored).</summary>
         private void SaveWindowPlacement()
         {
             Rectangle bounds = WindowState == FormWindowState.Normal ? Bounds : RestoreBounds;
@@ -214,16 +210,24 @@ namespace HTISOCreator.Forms
             _settings.WindowTop = bounds.Top;
             _settings.WindowWidth = bounds.Width;
             _settings.WindowHeight = bounds.Height;
-            _settings.WindowMaximized = WindowState == FormWindowState.Maximized;
+            _settings.WindowMaximized = false;
         }
 
-        /// <summary>At high display scaling the window can be taller than the screen; shrink it to fit.</summary>
+        /// <summary>
+        /// At high display scaling on a small screen the fixed-size window can be larger than the screen.
+        /// It is then made to fit, and the window scrolls so that every control can still be reached.
+        /// </summary>
         private void FitToScreen()
         {
-            Rectangle area = Screen.FromControl(this).WorkingArea;
-            MinimumSize = new Size(Math.Min(MinimumSize.Width, area.Width), Math.Min(MinimumSize.Height, area.Height));
+            FitToScreen(Screen.FromControl(this).WorkingArea);
+        }
+
+        internal void FitToScreen(Rectangle area)
+        {
             if (Height > area.Height || Width > area.Width)
             {
+                AutoScrollMinSize = ClientSize;
+                AutoScroll = true;
                 Size = new Size(Math.Min(Width, area.Width), Math.Min(Height, area.Height));
                 Location = new Point(area.Left + (area.Width - Width) / 2, area.Top + (area.Height - Height) / 2);
             }
@@ -1156,6 +1160,20 @@ namespace HTISOCreator.Forms
             Activate();
             await ScanSourceAsync(false);
             return null;
+        }
+
+        private void WebsiteLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                ShellHelper.OpenWebPage(ShellHelper.CompanyWebsite);
+            }
+            catch (Exception ex)
+            {
+                _log.Error("Could not open " + ShellHelper.CompanyWebsite, ex);
+                MessageBox.Show(this, "The website could not be opened. You can visit it at:\n\n" + ShellHelper.CompanyWebsite,
+                    Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void DetailsLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

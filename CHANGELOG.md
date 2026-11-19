@@ -2,6 +2,15 @@
 
 All notable changes to HT ISO Creator. Version 1.0.0 is the first public release. The development builds listed below it were internal. Their internal numbers (1.0.2, 1.0.3) were never released, and 1.0.0 supersedes them.
 
+## 1.0.1: fixed-size window, menu below the banner, website link
+
+### Changed
+- **Main window has a fixed size:** it can no longer be resized or maximised. Its position is still remembered; a size or maximised state saved by 1.0.0 is ignored. On a screen too small for the window (high display scaling), it is made to fit and scrolls.
+- **Menu below the banner:** File, Tools and Help now sit directly below the HT ISO Creator logo and title, instead of above them.
+
+### Added
+- **HTREASURE LTD website:** a [www.htreasure.com](https://www.htreasure.com) link in the main window banner and in the About window. The installer lists it as the publisher's website in Windows' installed apps.
+
 ## 1.0.0: first public release (Stage 4)
 
 ### Added
