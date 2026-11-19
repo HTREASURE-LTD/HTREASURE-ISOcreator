@@ -67,6 +67,27 @@ namespace HTISOCreator.Forms
             }
         }
 
+        private void LicenceLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LICENSE.txt");
+            try
+            {
+                if (File.Exists(path))
+                {
+                    ShellHelper.OpenDocument(path);
+                }
+                else
+                {
+                    MessageBox.Show(this, "The licence agreement file was not found:\n\n" + path, Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggingService.Instance.Error("Could not open the licence agreement", ex);
+                MessageBox.Show(this, "The licence agreement could not be opened.", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void WebsiteLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try

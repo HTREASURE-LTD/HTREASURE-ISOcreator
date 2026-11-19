@@ -26,6 +26,8 @@ AppVerName={#AppName} {#AppVersion}
 AppPublisher={#AppPublisher}
 AppPublisherURL=https://www.htreasure.com
 AppCopyright=Copyright (C) 2026 {#AppPublisher}
+; The end-user licence agreement; setup shows it and the user must accept it before installing.
+LicenseFile={#SourceDir}\LICENSE.txt
 VersionInfoVersion={#AppVersion}.0
 VersionInfoProductVersion={#AppVersion}
 VersionInfoCompany={#AppPublisher}
@@ -68,6 +70,7 @@ Source: "{#SourceDir}\DiscUtils.Core.dll"; DestDir: "{app}"; Flags: ignoreversio
 Source: "{#SourceDir}\DiscUtils.Iso9660.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourceDir}\DiscUtils.Streams.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourceDir}\THIRD-PARTY-NOTICES.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourceDir}\LICENSE.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourceDir}\Documentation\*"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [InstallDelete]

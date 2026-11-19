@@ -75,8 +75,11 @@ Tests\HTISOCreator.Tests\  MSTest tests
 installer\HTISOCreator.iss Inno Setup script
 Tools\                     Build-Release.ps1, Verify-Iso.ps1, Make-Icon.ps1
 docs\                      user and release documentation
+LICENSE.txt                end-user licence agreement (shown by the installer, shipped next to the program)
 THIRD-PARTY-NOTICES.txt    licence text shipped next to the program
 ```
 
 ## Licence
-Copyright © 2026 HTREASURE LTD. All rights reserved. No open-source licence has been granted for HT ISO Creator itself. Third-party components keep their own licences; see [docs/THIRD_PARTY_NOTICES.md](docs/THIRD_PARTY_NOTICES.md).
+Copyright © 2026 HTREASURE LTD. All rights reserved.
+
+HT ISO Creator is licensed under the HTREASURE LTD [End-User Licence Agreement](LICENSE.txt): free for **personal, non-commercial use**, governed by the law of England and Wales. Business or other organisational use needs a separate licence from HTREASURE LTD (www.htreasure.com). It is not an open-source licence. Third-party components keep their own licences; see [docs/THIRD_PARTY_NOTICES.md](docs/THIRD_PARTY_NOTICES.md).

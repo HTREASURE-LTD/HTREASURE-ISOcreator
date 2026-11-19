@@ -33,6 +33,8 @@
 
   <ItemGroup>
     <None Include="..\THIRD-PARTY-NOTICES.txt" Link="THIRD-PARTY-NOTICES.txt" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\LICENSE.txt" Link="LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\LICENSE.txt" Link="Documentation\LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
     <!-- User documentation, opened from the Help menu (Documentation folder next to the program). -->
     <None Include="..\README.md;..\CHANGELOG.md;..\docs\INSTALLATION.md;..\docs\USER_GUIDE.md;..\docs\FILESYSTEM_GUIDE.md;..\docs\TROUBLESHOOTING.md;..\docs\RELEASE_NOTES.md;..\docs\THIRD_PARTY_NOTICES.md" Link="Documentation\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>

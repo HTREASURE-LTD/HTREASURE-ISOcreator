@@ -191,7 +191,7 @@ After the fixes, every real-data, edge-case and damage test in sections 2–4 wa
 | **OneDrive online-only files** | Not tested with files that had to be downloaded during creation. |
 | **200% display scaling** | Checked only by automated layout tests. A 1080-pixel screen is too small for the window at 200%, so it is shrunk to fit. |
 | **Code signing** | The program and installer are **not digitally signed**, so SmartScreen may warn. Users are told to check `SHA256SUMS.txt`. |
-| **Licence** | No end-user licence has been chosen. The README says "All rights reserved". Third-party licences are in `THIRD_PARTY_NOTICES.md`. |
+| **Licence** | Versions 1.0.0 and 1.0.1 have no end-user licence. An HTREASURE LTD end-user licence (personal, non-commercial use; law of England and Wales) was added after 1.0.1 and will be in the next release. It has not been reviewed by a lawyer. |
 | **Contact and support details** | Version 1.0.1 includes the HTREASURE LTD website (www.htreasure.com). No e-mail or telephone support details have been supplied. |
 | **Fixed-size window on a real high-DPI small screen** | The fit-and-scroll behaviour was tested by an automated test with a simulated small screen, not on a real one. |
 | **Cancelling UDF creation** | Takes effect after IMAPI2's layout step (about 3 s per 1,000 files). This is documented. |

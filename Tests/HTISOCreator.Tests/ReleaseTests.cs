@@ -358,6 +358,59 @@ namespace HTISOCreator.Tests
             }
         }
 
+        [TestMethod]
+        public void LicenceAgreement_IsShipped_ShownByTheInstaller_AndOpenFromTheApp()
+        {
+            string programFolder = Path.GetDirectoryName(App.Location);
+            foreach (string path in new[] { Path.Combine(programFolder, "LICENSE.txt"), Path.Combine(programFolder, "Documentation", "LICENSE.txt") })
+            {
+                Assert.IsTrue(File.Exists(path), path + " is shipped with the program");
+                string text = File.ReadAllText(path);
+                StringAssert.StartsWith(text, "HT ISO Creator - End-User Licence Agreement");
+                StringAssert.Contains(text, "personal, non-commercial use");
+                StringAssert.Contains(text, "law of England and Wales");
+                StringAssert.Contains(text, "www.htreasure.com");
+            }
+
+            string root = programFolder;
+            while (root != null && !File.Exists(Path.Combine(root, "HTISOCreator.sln")))
+            {
+                root = Path.GetDirectoryName(root);
+            }
+
+            Assert.IsNotNull(root, "Repository root not found");
+            string setup = File.ReadAllText(Path.Combine(root, "installer", "HTISOCreator.iss"));
+            StringAssert.Contains(setup, @"LicenseFile={#SourceDir}\LICENSE.txt", "Setup shows the licence and requires it to be accepted");
+            StringAssert.Contains(setup, @"Source: ""{#SourceDir}\LICENSE.txt""; DestDir: ""{app}""");
+            StringAssert.Contains(File.ReadAllText(Path.Combine(root, "Tools", "Build-Release.ps1")), @"$userDocs = ""LICENSE.txt""");
+
+            using (var folder = new TestFolder())
+            {
+                UiStateTests.RunSta(async () =>
+                {
+                    using (MainForm form = UiStateTests.OpenForm(folder))
+                    {
+                        var help = (ToolStripMenuItem)form.MainMenuStrip.Items.Cast<ToolStripItem>().Single(i => i.Name == "helpMenu");
+                        ToolStripMenuItem licence = help.DropDownItems.OfType<ToolStripMenuItem>().Single(i => i.Name == "licenceMenuItem");
+                        Assert.AreEqual("LICENSE.txt", licence.Tag);
+                        Assert.IsTrue(File.Exists(Path.Combine(AppPaths.DocumentationFolder, "LICENSE.txt")), "Help > Licence Agreement finds the file");
+                    }
+
+                    using (var about = new AboutForm { StartPosition = FormStartPosition.Manual, Location = new Point(-5000, -5000), ShowInTaskbar = false })
+                    {
+                        about.Show();
+                        Application.DoEvents();
+                        LinkLabel link = UiStateTests.Find<LinkLabel>(about, "licenceLinkLabel");
+                        Assert.AreEqual("View licence agreement", link.Text);
+                        Assert.IsFalse(link.Bounds.IntersectsWith(UiStateTests.Find<LinkLabel>(about, "noticesLinkLabel").Bounds));
+                        Assert.IsTrue(about.ClientRectangle.Contains(link.Bounds));
+                    }
+
+                    await Task.CompletedTask;
+                });
+            }
+        }
+
         private static void Walk(Control parent, Action<Control> visit)
         {
             visit(parent);

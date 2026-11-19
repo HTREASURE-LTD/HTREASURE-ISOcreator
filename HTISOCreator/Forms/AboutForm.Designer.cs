@@ -40,6 +40,7 @@
             this.copyrightLabel = new System.Windows.Forms.Label();
             this.licenceLabel = new System.Windows.Forms.Label();
             this.noticesLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.licenceLinkLabel = new System.Windows.Forms.LinkLabel();
             this.okButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             //
@@ -149,6 +150,17 @@
             this.noticesLinkLabel.Text = "View third-party notices";
             this.noticesLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.NoticesLinkLabel_LinkClicked);
             //
+            // licenceLinkLabel
+            //
+            this.licenceLinkLabel.AutoSize = true;
+            this.licenceLinkLabel.Location = new System.Drawing.Point(190, 238);
+            this.licenceLinkLabel.Name = "licenceLinkLabel";
+            this.licenceLinkLabel.Size = new System.Drawing.Size(136, 15);
+            this.licenceLinkLabel.TabIndex = 12;
+            this.licenceLinkLabel.TabStop = true;
+            this.licenceLinkLabel.Text = "View licence agreement";
+            this.licenceLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LicenceLinkLabel_LinkClicked);
+            //
             // okButton
             //
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -179,6 +191,7 @@
             this.Controls.Add(this.copyrightLabel);
             this.Controls.Add(this.licenceLabel);
             this.Controls.Add(this.noticesLinkLabel);
+            this.Controls.Add(this.licenceLinkLabel);
             this.Controls.Add(this.okButton);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -207,6 +220,7 @@
         private System.Windows.Forms.Label copyrightLabel;
         private System.Windows.Forms.Label licenceLabel;
         private System.Windows.Forms.LinkLabel noticesLinkLabel;
+        private System.Windows.Forms.LinkLabel licenceLinkLabel;
         private System.Windows.Forms.Button okButton;
     }
 }

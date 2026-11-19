@@ -56,7 +56,7 @@ foreach ($doc in "README.md", "docs\RELEASE_NOTES.md") {
     if (-not (Get-Content (Join-Path $root $doc) -Raw).Contains($Version)) { throw "$doc does not mention version $Version" }
 }
 
-$userDocs = "README.md", "CHANGELOG.md", "docs\INSTALLATION.md", "docs\USER_GUIDE.md", "docs\FILESYSTEM_GUIDE.md", "docs\TROUBLESHOOTING.md", "docs\RELEASE_NOTES.md", "docs\THIRD_PARTY_NOTICES.md"
+$userDocs = "LICENSE.txt", "README.md", "CHANGELOG.md", "docs\INSTALLATION.md", "docs\USER_GUIDE.md", "docs\FILESYSTEM_GUIDE.md", "docs\TROUBLESHOOTING.md", "docs\RELEASE_NOTES.md", "docs\THIRD_PARTY_NOTICES.md"
 
 if ($RefreshDocs) {
     Step "Checking the existing installer and portable package"
@@ -110,6 +110,7 @@ foreach ($file in "HTISOCreator.exe", "HTISOCreator.exe.config", "DiscUtils.Core
     Copy-Item (Join-Path $binary $file) $stage
 }
 foreach ($doc in $userDocs) { Copy-Item (Join-Path $root $doc) (Join-Path $stage "Documentation") }
+Copy-Item (Join-Path $root "LICENSE.txt") $stage
 $exeInfo = (Get-Item (Join-Path $stage "HTISOCreator.exe")).VersionInfo
 if ($exeInfo.ProductVersion -ne $Version -or $exeInfo.CompanyName -ne "HTREASURE LTD") {
     throw "HTISOCreator.exe reports product version '$($exeInfo.ProductVersion)' by '$($exeInfo.CompanyName)'."

@@ -73,6 +73,7 @@
             this.troubleshootingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.releaseNotesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.noticesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.licenceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpDocsSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.headerPanel = new System.Windows.Forms.Panel();
@@ -314,6 +315,7 @@
             this.releaseNotesMenuItem,
             this.helpDocsSeparator,
             this.shortcutsMenuItem,
+            this.licenceMenuItem,
             this.noticesMenuItem,
             this.helpMenuSeparator,
             this.aboutMenuItem});
@@ -352,6 +354,14 @@
             this.releaseNotesMenuItem.Tag = "RELEASE_NOTES.md";
             this.releaseNotesMenuItem.Text = "&Release Notes";
             this.releaseNotesMenuItem.Click += new System.EventHandler(this.DocumentMenuItem_Click);
+            //
+            // licenceMenuItem
+            //
+            this.licenceMenuItem.Name = "licenceMenuItem";
+            this.licenceMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.licenceMenuItem.Tag = "LICENSE.txt";
+            this.licenceMenuItem.Text = "&Licence Agreement";
+            this.licenceMenuItem.Click += new System.EventHandler(this.DocumentMenuItem_Click);
             //
             // noticesMenuItem
             //
@@ -1245,6 +1255,7 @@
         private System.Windows.Forms.ToolStripMenuItem troubleshootingMenuItem;
         private System.Windows.Forms.ToolStripMenuItem releaseNotesMenuItem;
         private System.Windows.Forms.ToolStripMenuItem noticesMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem licenceMenuItem;
         private System.Windows.Forms.ToolStripSeparator helpDocsSeparator;
         private System.Windows.Forms.ToolStripMenuItem aboutMenuItem;
         private System.Windows.Forms.Panel headerPanel;
