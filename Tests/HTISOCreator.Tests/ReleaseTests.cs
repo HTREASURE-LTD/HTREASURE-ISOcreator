@@ -23,19 +23,19 @@ namespace HTISOCreator.Tests
         private static readonly Assembly App = typeof(MainForm).Assembly;
 
         [TestMethod]
-        public void VersionAndPublisherMetadata_AreForRelease101()
+        public void VersionAndPublisherMetadata_AreForRelease102()
         {
-            Assert.AreEqual(new Version(1, 0, 1, 0), App.GetName().Version);
-            Assert.AreEqual("1.0.1.0", App.GetCustomAttribute<AssemblyFileVersionAttribute>().Version);
-            Assert.AreEqual("1.0.1", App.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion);
+            Assert.AreEqual(new Version(1, 0, 2, 0), App.GetName().Version);
+            Assert.AreEqual("1.0.2.0", App.GetCustomAttribute<AssemblyFileVersionAttribute>().Version);
+            Assert.AreEqual("1.0.2", App.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion);
             Assert.AreEqual("HTREASURE LTD", App.GetCustomAttribute<AssemblyCompanyAttribute>().Company);
             Assert.AreEqual("HT ISO Creator", App.GetCustomAttribute<AssemblyProductAttribute>().Product);
             StringAssert.Contains(App.GetCustomAttribute<AssemblyCopyrightAttribute>().Copyright, "HTREASURE LTD");
 
             // The metadata Windows shows in File Explorer (Properties > Details).
             FileVersionInfo exe = FileVersionInfo.GetVersionInfo(App.Location);
-            Assert.AreEqual("1.0.1", exe.ProductVersion);
-            Assert.AreEqual("1.0.1.0", exe.FileVersion);
+            Assert.AreEqual("1.0.2", exe.ProductVersion);
+            Assert.AreEqual("1.0.2.0", exe.FileVersion);
             Assert.AreEqual("HTREASURE LTD", exe.CompanyName);
             Assert.AreEqual("HT ISO Creator", exe.ProductName);
         }
@@ -50,7 +50,7 @@ namespace HTISOCreator.Tests
                     about.Show();
                     Application.DoEvents();
                     Assert.AreEqual("HTREASURE LTD", UiStateTests.Find<Label>(about, "developerValueLabel").Text);
-                    StringAssert.StartsWith(UiStateTests.Find<Label>(about, "versionValueLabel").Text, "1.0.1 (build 1.0.1.0, ");
+                    StringAssert.StartsWith(UiStateTests.Find<Label>(about, "versionValueLabel").Text, "1.0.2 (build 1.0.2.0, ");
                     StringAssert.Contains(UiStateTests.Find<Label>(about, "copyrightLabel").Text, "HTREASURE LTD");
                     StringAssert.Contains(UiStateTests.Find<Label>(about, "descriptionLabel").Text, "does not create bootable images");
                     StringAssert.Contains(UiStateTests.Find<Label>(about, "licenceLabel").Text, "IMAPI2");

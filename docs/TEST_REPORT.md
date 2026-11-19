@@ -1,6 +1,24 @@
-# HT ISO Creator 1.0.1 — Test Report
+# HT ISO Creator 1.0.2 — Test Report
 
-This report lists the tests that were **actually run**, with their results: first for version 1.0.1, then the full quality assurance of version 1.0.0, which 1.0.1 builds on. Anything not tested is listed under [Not tested and open issues](#not-tested-and-open-issues).
+This report lists the tests that were **actually run**, with their results: first for versions 1.0.2 and 1.0.1, then the full quality assurance of version 1.0.0, which they build on. Anything not tested is listed under [Not tested and open issues](#not-tested-and-open-issues).
+
+## Version 1.0.2
+1.0.2 adds the end-user licence agreement (`LICENSE.txt`): the installer's licence page, the licence file in every package, and the **Help > Licence Agreement** and **About > View licence agreement** links. The program is otherwise unchanged from 1.0.1.
+
+| | |
+|---|---|
+| Version | 1.0.2 (file version 1.0.2.0), Release build, .NET Framework 4.6.2 target |
+| Test date | 19 November 2026, on the same PC and standard user account as below |
+
+| Test | Result |
+|---|---|
+| **Release build** (`Tools\Build-Release.ps1 -Version 1.0.2`) | Clean Release build, 0 warnings. **182 of 182 automated tests passed** before any package was made, including the new licence test (licence shipped next to the program and in Documentation; installer shows it; Help menu and About links). |
+| **Installer licence page** (final setup, run interactively and then cancelled) | The License Agreement page shows the HT ISO Creator licence; "I do not accept" is selected and **Next** is disabled until it is accepted. Cancelling installed nothing. |
+| **Upgrade from the published 1.0.1 installer** (per user, silent) | Exit code 0. One uninstall entry, now 1.0.2. **Settings file byte-for-byte unchanged.** `LICENSE.txt` installed in the program folder and in Documentation, identical to the repository. Every installed file identical to the release files. |
+| **Window, reinstall while running, uninstall** | Same results as 1.0.1: fixed size at the saved position; setup refused while running (exit code 1); uninstall removed the program and kept settings and history. |
+| **Portable ZIP** | Contains `LICENSE.txt` (program folder and Documentation). Started, exit code 0, wrote nothing into its folder. |
+| **Create and verify, all four file systems**, using the program from the portable ZIP on the project source (99 files) | All 4 images created, size exactly as predicted, and verified with SHA-256 and the Windows mount. |
+| **Packages** | `SHA256SUMS.txt` matched every package. |
 
 ## Version 1.0.1
 1.0.1 changes only the main window (fixed size, menu below the banner, website link), the About window and the installer's publisher website. Image creation and verification code is unchanged from 1.0.0.
@@ -21,7 +39,7 @@ This report lists the tests that were **actually run**, with their results: firs
 | **Create and verify, all four file systems**, using the program from the portable ZIP on the project source (98 files) | All 4 images created, size exactly as predicted, and verified with SHA-256 and the Windows mount. |
 | **Packages** | `SHA256SUMS.txt` matched every package; installer product 1.0.1 by HTREASURE LTD, not signed; source ZIP without build output or `.git`. |
 
-**Note:** the test PC also has an all-users 1.0.0 installation in `C:\Program Files\HT ISO Creator` (installed by the owner, not by these tests). It was not changed. Upgrading it needs the 1.0.1 setup run with administrator rights.
+**Note:** the test PC also has an all-users 1.0.0 installation in `C:\Program Files\HT ISO Creator` (installed by the owner, not by these tests). It was not changed. Upgrading it needs the latest setup run with administrator rights.
 
 The tests in sections 1–6 below were run on **version 1.0.0**.
 
@@ -191,13 +209,13 @@ After the fixes, every real-data, edge-case and damage test in sections 2–4 wa
 | **OneDrive online-only files** | Not tested with files that had to be downloaded during creation. |
 | **200% display scaling** | Checked only by automated layout tests. A 1080-pixel screen is too small for the window at 200%, so it is shrunk to fit. |
 | **Code signing** | The program and installer are **not digitally signed**, so SmartScreen may warn. Users are told to check `SHA256SUMS.txt`. |
-| **Licence** | Versions 1.0.0 and 1.0.1 have no end-user licence. An HTREASURE LTD end-user licence (personal, non-commercial use; law of England and Wales) was added after 1.0.1 and will be in the next release. It has not been reviewed by a lawyer. |
+| **Licence** | From 1.0.2, the HTREASURE LTD end-user licence (personal, non-commercial use; law of England and Wales) is included and shown by the installer. Versions 1.0.0 and 1.0.1 have none. The licence text has not been reviewed by a lawyer. |
 | **Contact and support details** | Version 1.0.1 includes the HTREASURE LTD website (www.htreasure.com). No e-mail or telephone support details have been supplied. |
 | **Fixed-size window on a real high-DPI small screen** | The fit-and-scroll behaviour was tested by an automated test with a simulated small screen, not on a real one. |
 | **Cancelling UDF creation** | Takes effect after IMAPI2's layout step (about 3 s per 1,000 files). This is documented. |
 
 ### Checklist for a clean Windows 10 or Windows 11 machine
-1. Copy `HTISOCreator_Setup_v1.0.1.exe` and `SHA256SUMS.txt`. Check the hash with `Get-FileHash`.
+1. Copy `HTISOCreator_Setup_v1.0.2.exe` and `SHA256SUMS.txt`. Check the hash with `Get-FileHash`.
 2. Install "for all users" from an administrator account. Confirm the Start Menu shortcut, the uninstall entry and that the program starts.
 3. Create an ISO 9660 + Joliet image and a UDF image of any folder, with *Verify* and the SHA-256 check on. Confirm "Verification passed".
 4. Install again over it (upgrade), then uninstall. Confirm the settings in `%APPDATA%\HTREASURE LTD\HT ISO Creator` remain.

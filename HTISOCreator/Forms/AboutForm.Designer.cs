@@ -90,7 +90,7 @@
             this.versionValueLabel.Name = "versionValueLabel";
             this.versionValueLabel.Size = new System.Drawing.Size(37, 15);
             this.versionValueLabel.TabIndex = 4;
-            this.versionValueLabel.Text = "1.0.1";
+            this.versionValueLabel.Text = "1.0.2";
             //
             // websiteLabel
             //

@@ -2,7 +2,7 @@
 
 All notable changes to HT ISO Creator. Version 1.0.0 is the first public release. The development builds listed below it were internal. Their internal numbers (1.0.2, 1.0.3) were never released, and 1.0.0 supersedes them.
 
-## Unreleased
+## 1.0.2: end-user licence agreement
 
 ### Added
 - **End-user licence agreement** (`LICENSE.txt`): free for personal, non-commercial use; business use needs a separate licence from HTREASURE LTD; governed by the law of England and Wales.

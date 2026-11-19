@@ -1,4 +1,4 @@
-# HT ISO Creator 1.0.1 — Troubleshooting
+# HT ISO Creator 1.0.2 — Troubleshooting
 
 Most messages explain the problem and what to do. Error messages also include a short **reference** (for example `8c03145c`). Search for it in the log (**Tools > View Today's Log**) to see the technical details. Logs are kept for 30 days in `%LOCALAPPDATA%\HTREASURE LTD\HT ISO Creator\Logs`.
 
@@ -41,7 +41,7 @@ Most messages explain the problem and what to do. Error messages also include a 
 | Symptom | Solution |
 |---|---|
 | **"HT ISO Creator needs Microsoft .NET Framework 4.6.2 or later"** | Install .NET Framework 4.8 from Windows Update or Microsoft, then run the installer again. |
-| **"Windows protected your PC" (SmartScreen)** | Version 1.0.1 is not digitally signed. Check the file against `SHA256SUMS.txt` (see [INSTALLATION.md](INSTALLATION.md)), then choose **More info > Run anyway**. |
+| **"Windows protected your PC" (SmartScreen)** | Version 1.0.2 is not digitally signed. Check the file against `SHA256SUMS.txt` (see [INSTALLATION.md](INSTALLATION.md)), then choose **More info > Run anyway**. |
 | **"Setup has detected that HT ISO Creator is currently running"** | Close every HT ISO Creator window, then click **OK**. A silent installation stops with exit code 1 in this case; close the program and run it again. |
 | **Settings are gone after reinstalling** | Settings are kept on uninstall unless their folder was deleted: `%APPDATA%\HTREASURE LTD\HT ISO Creator`. |
 

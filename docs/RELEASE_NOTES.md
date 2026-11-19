@@ -1,18 +1,24 @@
-# HT ISO Creator 1.0.1 — Release Notes
+# HT ISO Creator 1.0.2 — Release Notes
 
 **Publisher:** HTREASURE LTD
-**Version:** 1.0.1 (file version 1.0.1.0)
+**Version:** 1.0.2 (file version 1.0.2.0)
 **Website:** [www.htreasure.com](https://www.htreasure.com)
 **Requirements:** Windows 10 or Windows 11, .NET Framework 4.6.2 or later
 
-HT ISO Creator creates **data ISO images** from folders and verifies them. It does not create bootable images. Version 1.0.1 is a small update to 1.0.0, the first public release.
+HT ISO Creator creates **data ISO images** from folders and verifies them. It does not create bootable images. Version 1.0.2 adds the HTREASURE LTD end-user licence agreement. 1.0.0 was the first public release.
 
-## New in 1.0.1
+## New in 1.0.2
+- **End-user licence agreement** (`LICENSE.txt`): HT ISO Creator is free for **personal, non-commercial use**. Use by or for a business or other organisation needs a separate licence from HTREASURE LTD ([www.htreasure.com](https://www.htreasure.com)). The agreement is governed by the law of England and Wales.
+- The installer shows the licence agreement, and it must be accepted before installing.
+- The licence is installed next to the program, included in the portable and documentation packages, and opens from **Help > Licence Agreement** and **About > View licence agreement**.
+
+The program itself, including image creation and verification, is unchanged from 1.0.1.
+
+## In 1.0.1
 - **Fixed-size main window:** it can no longer be resized or maximised, and it still opens where you last left it. On a screen too small for it (very high display scaling), it fits the screen and scrolls.
 - **Menu below the banner:** File, Tools and Help sit directly below the HT ISO Creator logo and title.
 - **HTREASURE LTD website:** a [www.htreasure.com](https://www.htreasure.com) link in the main window and the About window, and in Windows' installed apps list.
 
-Image creation and verification are unchanged from 1.0.0.
 
 ## Features
 - **Four file systems:**
@@ -36,15 +42,15 @@ Image creation and verification are unchanged from 1.0.0.
 - **Windows installer** (per-user or all users) and **portable** version.
 
 ## Installing
-See [INSTALLATION.md](INSTALLATION.md). Run `HTISOCreator_Setup_v1.0.1.exe`, or extract `HTISOCreator_Portable_v1.0.1.zip`. Check downloads against `SHA256SUMS.txt`.
+See [INSTALLATION.md](INSTALLATION.md). Run `HTISOCreator_Setup_v1.0.2.exe`, or extract `HTISOCreator_Portable_v1.0.2.zip`. Check downloads against `SHA256SUMS.txt`.
 
 ## Upgrading
-**From 1.0.0:** run the 1.0.1 installer, or replace the portable folder. Settings and history are kept. A window size saved by 1.0.0 is no longer used, because the window has a fixed size.
+**From 1.0.0 or 1.0.1:** run the 1.0.2 installer and accept the licence agreement, or replace the portable folder. Settings and history are kept. A window size saved by 1.0.0 is no longer used, because the window has a fixed size.
 
 **From development builds:** Settings and history from the Stage 1–3 development builds (`%APPDATA%\HT Software\HT ISO Creator`) are copied automatically the first time you start 1.0.0 or later.
 
 ## Known limitations
-- **No bootable images:** HT ISO Creator 1.0.1 makes data images only.
+- **No bootable images:** HT ISO Creator 1.0.2 makes data images only.
 - **No Rock Ridge:** Unix permissions and symbolic links aren't supported.
 - **UDF images are UDF 1.02.** In hybrid images, the extra Joliet names written by Windows IMAPI2 can be up to about 110 characters (standard Joliet allows 64), and the ISO 9660 names are 8.3-style. Modern systems read the UDF names.
 - **Names over 64 characters** (ISO 9660 + Joliet) or **127 characters** (UDF) can't be stored exactly. Strict Mode refuses them; Compatibility Mode shortens them after you confirm.
