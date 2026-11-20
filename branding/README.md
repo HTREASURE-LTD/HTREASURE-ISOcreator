@@ -1,8 +1,8 @@
 # HTREASURE brand assets used by HT ISO Creator
 
-These files are copied, unchanged, from the HTREASURE LTD branding kit in
+These files are copied from the HTREASURE LTD branding kit in
 [HTREASURE-LTD/HT-Software-Template](https://github.com/HTREASURE-LTD/HT-Software-Template) (`HTREASURE-Branding`, commit `c1fbde6`).
-Only the files HT ISO Creator uses are copied. Don't edit them here: change the kit and copy them again.
+Only the files HT ISO Creator uses are copied. Don't edit them here: change the kit and copy them again. One change: the company's registered office address is removed from `brand.json` here, because HT ISO Creator does not show it.
 
 | File | From the kit | Used for |
 |---|---|---|
