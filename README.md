@@ -68,7 +68,7 @@ In order, it:
 4. generates the advisory snapshot and `ht-compatibility.json` with the HTREASURE `ht-standards` tool;
 5. creates the installer, the portable ZIP, the documentation ZIP and the source ZIP, plus `SHA256SUMS.txt`, in `artifacts\v1.0.2\`.
 
-It needs [HTREASURE-LTD/ht-software-standards](https://github.com/HTREASURE-LTD/ht-software-standards) checked out next to this repository (`..\ht-software-standards`), or `-StandardsRoot <folder>`. As the HTREASURE standards require, a release signs the advisory snapshot: add `-AdvisorySigningKey <offline PEM> -AdvisoryKeyId <id>`. Until HTREASURE LTD provisions a signing key, only an internal test build is possible, with `-AllowUnsignedSnapshot`.
+It needs [HTREASURE-LTD/ht-software-standards](https://github.com/HTREASURE-LTD/ht-software-standards) checked out next to this repository (`..\ht-software-standards`), or `-StandardsRoot <folder>`. As the HTREASURE standards require, a release signs the advisory snapshot: add `-AdvisorySigningKey <offline PEM> -AdvisoryKeyId htreasure-advisory-2026`. The private key is kept offline by HTREASURE LTD and is never committed; its public key is in `HTISOCreator\Resources\trusted-keys.json`, which must match the registry's `security\keys\trusted-keys.json`. `-AllowUnsignedSnapshot` makes an internal test build without the key.
 
 ### HTREASURE standards
 HT ISO Creator follows the HTREASURE software template and standards:

@@ -229,7 +229,7 @@ After the fixes, every real-data, edge-case and damage test in sections 2–4 wa
 | **Licence** | From 1.0.2, the HTREASURE LTD end-user licence (personal, non-commercial use; law of England and Wales) is included and shown by the installer. Versions 1.0.0 and 1.0.1 have none. The licence text has not been reviewed by a lawyer. |
 | **Contact and support details** | Version 1.0.1 includes the HTREASURE LTD website (www.htreasure.com). No e-mail or telephone support details have been supplied. |
 | **Windows 7 SP1 and 8.1** | Supported from the next release, but not tested on either: no Windows 7 or 8.1 PC or VM was available. |
-| **Advisory signing key** | HTREASURE LTD has no production advisory signing key yet (`trusted-keys.json` is empty), so no release can include a signed advisory snapshot; the release script refuses to make one without it. |
+| **Advisory signing key** | The production key `htreasure-advisory-2026` was created by HTREASURE LTD on 20 November 2026; its public key is in the registry and compiled into the program. No release signed with it has been built or tested yet. |
 | **Online advisory checks and security updates** | Not available: no HTREASURE advisory feed or release feed exists for HT ISO Creator yet. |
 | **Fixed-size window on a real high-DPI small screen** | The fit-and-scroll behaviour was tested by an automated test with a simulated small screen, not on a real one. |
 | **Cancelling UDF creation** | Takes effect after IMAPI2's layout step (about 3 s per 1,000 files). This is documented. |

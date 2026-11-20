@@ -264,7 +264,11 @@ namespace HTISOCreator.Tests
             Assert.IsNull(StandardsRuntime.AdvisoryServiceUrl, "No advisory service is configured");
             CollectionAssert.Contains(new[] { "windows-x86", "windows-x64", "windows-arm64" }, StandardsRuntime.Platform);
             Assert.AreEqual(StandardsRuntime.Version, StandardsRuntime.Application.Version);
-            Assert.AreEqual(0, StandardsRuntime.LoadTrustedKeys().Count, "The registry has no production key yet; the program trusts exactly its keys");
+            // The program trusts exactly the registry's production key (Build-Release checks the two files are identical).
+            TrustedKeySet trusted = StandardsRuntime.LoadTrustedKeys();
+            Assert.AreEqual(1, trusted.Count);
+            byte[] ignored;
+            Assert.IsTrue(trusted.TryGet("htreasure-advisory-2026", out ignored), "HTREASURE production advisory key");
 
             string copyright = typeof(StandardsRuntime).Assembly.GetCustomAttribute<AssemblyCopyrightAttribute>().Copyright;
             StringAssert.Matches(copyright, new System.Text.RegularExpressions.Regex(@"^Copyright © 20\d\d HTREASURE LTD\. All rights reserved\.$"));
