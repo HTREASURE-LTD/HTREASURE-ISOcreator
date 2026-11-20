@@ -25,7 +25,7 @@ namespace HTISOCreator.Forms
             toolTip.SetToolTip(versionValueLabel, BuildDetails());
         }
 
-        /// <summary>"1.0.2 (build 1.0.2.0, Release)".</summary>
+        /// <summary>"1.1.0 (build 1.1.0.0, Release)".</summary>
         internal static string VersionText()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();

@@ -1,6 +1,6 @@
 ﻿; HT ISO Creator - Windows installer (Inno Setup 6)
 ; Build with Tools\Build-Release.ps1, which passes the version and the staged release folder:
-;   ISCC.exe /DAppVersion=1.0.2 /DSourceDir=<staged files> /DOutputDir=<output> installer\HTISOCreator.iss
+;   ISCC.exe /DAppVersion=1.1.0 /DSourceDir=<staged files> /DOutputDir=<output> installer\HTISOCreator.iss
 ;
 ; The AppId below must never change: Windows uses it to recognise upgrades and the uninstall entry.
 ; Follows the HTREASURE installer branding rules (HTREASURE-LTD/HT-Software-Template, Installer/README.md).

@@ -1,4 +1,4 @@
-# HT ISO Creator 1.0.2
+# HT ISO Creator 1.1.0
 
 **HT ISO Creator** is a Windows desktop application from **HTREASURE LTD** ([www.htreasure.com](https://www.htreasure.com)). It creates and verifies **data ISO images** (ISO 9660, Joliet and UDF) from folders.
 
@@ -14,9 +14,9 @@
 ## Download and install
 | File | What it is |
 |---|---|
-| `HTISOCreator_Setup_v1.0.2.exe` | Windows installer (all users, or "for me only" without administrator rights) |
-| `HTISOCreator_Portable_v1.0.2.zip` | Portable version: extract and run, no installation |
-| `HTISOCreator_Documentation_v1.0.2.zip` | All documentation |
+| `HTISOCreator_Setup_v1.1.0.exe` | Windows installer (all users, or "for me only" without administrator rights) |
+| `HTISOCreator_Portable_v1.1.0.zip` | Portable version: extract and run, no installation |
+| `HTISOCreator_Documentation_v1.1.0.zip` | All documentation |
 | `HTISOCreator_Stage4_Complete.zip` | Complete source code |
 | `SHA256SUMS.txt` | SHA-256 checksums of the files above |
 
@@ -29,7 +29,7 @@
 | [docs/FILESYSTEM_GUIDE.md](docs/FILESYSTEM_GUIDE.md) | Choosing ISO 9660, Joliet or UDF |
 | [docs/INSTALLATION.md](docs/INSTALLATION.md) | Installer, portable version, upgrades, uninstalling |
 | [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | Messages and their solutions |
-| [docs/RELEASE_NOTES.md](docs/RELEASE_NOTES.md) | What's in 1.0.2, known limitations |
+| [docs/RELEASE_NOTES.md](docs/RELEASE_NOTES.md) | What's in 1.1.0, known limitations |
 | [docs/TEST_REPORT.md](docs/TEST_REPORT.md) | Tests run on this release and their results |
 | [CHANGELOG.md](CHANGELOG.md) | Changes by version |
 | [docs/THIRD_PARTY_NOTICES.md](docs/THIRD_PARTY_NOTICES.md) | Third-party components and licences |
@@ -66,7 +66,7 @@ In order, it:
 2. does a clean Release build, with warnings treated as errors;
 3. runs all tests;
 4. generates the advisory snapshot and `ht-compatibility.json` with the HTREASURE `ht-standards` tool;
-5. creates the installer, the portable ZIP, the documentation ZIP and the source ZIP, plus `SHA256SUMS.txt`, in `artifacts\v1.0.2\`.
+5. creates the installer, the portable ZIP, the documentation ZIP and the source ZIP, plus `SHA256SUMS.txt`, in `artifacts\v1.1.0\`.
 
 It needs [HTREASURE-LTD/ht-software-standards](https://github.com/HTREASURE-LTD/ht-software-standards) checked out next to this repository (`..\ht-software-standards`), or `-StandardsRoot <folder>`. As the HTREASURE standards require, a release signs the advisory snapshot: add `-AdvisorySigningKey <offline PEM> -AdvisoryKeyId htreasure-advisory-2026`. The private key is kept offline by HTREASURE LTD and is never committed; its public key is in `HTISOCreator\Resources\trusted-keys.json`, which must match the registry's `security\keys\trusted-keys.json`. `-AllowUnsignedSnapshot` makes an internal test build without the key.
 

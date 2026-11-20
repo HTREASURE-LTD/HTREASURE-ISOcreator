@@ -54,7 +54,7 @@ namespace HTISOCreator.Security
             }
         }
 
-        /// <summary>The product version, for example "1.0.2".</summary>
+        /// <summary>The product version, for example "1.1.0".</summary>
         public static string Version
         {
             get

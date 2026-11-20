@@ -1,9 +1,9 @@
-# HT ISO Creator 1.0.2 — Test Report
+# HT ISO Creator 1.1.0 — Test Report
 
-This report lists the tests that were **actually run**, with their results: first for versions 1.0.2 and 1.0.1, then the full quality assurance of version 1.0.0, which they build on. Anything not tested is listed under [Not tested and open issues](#not-tested-and-open-issues).
+This report lists the tests that were **actually run**, with their results: first for versions 1.1.0, 1.0.2 and 1.0.1, then the full quality assurance of version 1.0.0, which they build on. Anything not tested is listed under [Not tested and open issues](#not-tested-and-open-issues).
 
-## Unreleased: HTREASURE software template and standards
-Tested on 20 November 2026 on the same PC and standard user account. Not released yet.
+## Version 1.1.0: HTREASURE software template and standards
+Tested on 20 November 2026 on the same PC and standard user account, before the version number was set to 1.1.0. The tests of the final, signed 1.1.0 packages are added below once they have been run.
 
 | Test | Result |
 |---|---|
@@ -18,6 +18,20 @@ Tested on 20 November 2026 on the same PC and standard user account. Not release
 | **Release script** | Refuses to build without an advisory signing key. With `-AllowUnsignedSnapshot` (internal test build, written outside `artifacts`) it generated the snapshot and `ht-compatibility.json` with `ht-standards`, and built all packages. |
 | **Installer (internal build)** | Upgrade from the published 1.0.2: same folder kept, Start menu shortcut moved to the HTREASURE folder, "An HTREASURE LTD product" and support contact in installed apps, snapshot and manifest installed, program started. Fresh install: `%LOCALAPPDATA%\Programs\HTREASURE\HT ISO Creator`. Uninstall removed everything except settings and history. |
 | **Windows 7 / 8.1** | The installer now allows Windows 7 SP1 and later; the program declares Windows 7, 8 and 8.1 in its manifest; the Windows mount check reports itself unavailable before Windows 8 (unit-tested); every native call the program makes exists on Windows 7. **Not run on Windows 7 or 8.1**: no such PC or VM was available. |
+
+### Final 1.1.0 release packages (signed advisory snapshot)
+Built by HTREASURE LTD on 20 November 2026 with `Tools\Build-Release.ps1 -Version 1.1.0 -AdvisorySigningKey <offline key> -AdvisoryKeyId htreasure-advisory-2026`. The private key stayed offline; these tests used only the packages and the public key.
+
+| Test | Result |
+|---|---|
+| **Packages** | All four match `SHA256SUMS.txt`. Installer: product 1.1.0, HTREASURE LTD, "Copyright © 2026 HTREASURE LTD. All rights reserved."; the program and installer are **not** Authenticode-signed. |
+| **Automated tests** | **194 of 194 passed** against the exact binaries in the packages (the program was byte-identical before and after the run). |
+| **Advisory snapshot signature** | The standards' own `ht-standards verify` reports it **Valid** against the registry's key `htreasure-advisory-2026`. Snapshot: `ht-iso-creator`, sequence 1, 0 advisories (none published). `ht-compatibility.json`: 1.1.0, net462, minimum Windows 6.1.7601, advisory service disabled. |
+| **The released program checks the signature** | Built to require a signed snapshot (`HTAllowUnsignedSnapshot=false`) with the one registry key compiled in. With the shipped snapshot: *Bundled snapshot*, "No known applicable advisories", no warnings. With one byte changed: refused ("the data may have been altered"), status *Unknown*. With the signature removed: refused ("not signed"), status *Unknown*. |
+| **Upgrade from the published 1.0.2** (per user, silent) | Exit code 0. Same folder kept, one uninstall entry (1.1.0, "An HTREASURE LTD product", support@htreasure.com), Start menu shortcut moved to the HTREASURE folder, signed snapshot and manifest installed, program started. |
+| **Fresh install, uninstall** | Installed to `%LOCALAPPDATA%\Programs\HTREASURE\HT ISO Creator`; all 19 installed files identical to the release files. The Security Advisory History window, with the installed snapshot, shows the offline-history banner and no warnings. Uninstall removed everything except settings and history. |
+| **Portable ZIP** | Contains the signed snapshot and manifest. Started (fixed-size window), exit code 0, wrote nothing into its folder. |
+| **Create and verify, all four file systems**, using the program from the portable ZIP on the project source (137 files) | All 4 images created, size exactly as predicted, and verified with SHA-256 and the Windows mount. |
 
 ## Version 1.0.2
 1.0.2 adds the end-user licence agreement (`LICENSE.txt`): the installer's licence page, the licence file in every package, and the **Help > Licence Agreement** and **About > View licence agreement** links. The program is otherwise unchanged from 1.0.1.
@@ -228,8 +242,8 @@ After the fixes, every real-data, edge-case and damage test in sections 2–4 wa
 | **Code signing** | The program and installer are **not digitally signed**, so SmartScreen may warn. Users are told to check `SHA256SUMS.txt`. |
 | **Licence** | From 1.0.2, the HTREASURE LTD end-user licence (personal, non-commercial use; law of England and Wales) is included and shown by the installer. Versions 1.0.0 and 1.0.1 have none. The licence text has not been reviewed by a lawyer. |
 | **Contact and support details** | Version 1.0.1 includes the HTREASURE LTD website (www.htreasure.com). No e-mail or telephone support details have been supplied. |
-| **Windows 7 SP1 and 8.1** | Supported from the next release, but not tested on either: no Windows 7 or 8.1 PC or VM was available. |
-| **Advisory signing key** | The production key `htreasure-advisory-2026` was created by HTREASURE LTD on 20 November 2026; its public key is in the registry and compiled into the program. No release signed with it has been built or tested yet. |
+| **Windows 7 SP1 and 8.1** | Supported from 1.1.0, but not tested on either: no Windows 7 or 8.1 PC or VM was available. |
+| **Advisory signing key** | The production key `htreasure-advisory-2026` was created by HTREASURE LTD on 20 November 2026; its public key is in the registry and compiled into the program. Version 1.1.0 is the first release signed with it. |
 | **Online advisory checks and security updates** | Not available: no HTREASURE advisory feed or release feed exists for HT ISO Creator yet. |
 | **Fixed-size window on a real high-DPI small screen** | The fit-and-scroll behaviour was tested by an automated test with a simulated small screen, not on a real one. |
 | **Cancelling UDF creation** | Takes effect after IMAPI2's layout step (about 3 s per 1,000 files). This is documented. |

@@ -1,4 +1,4 @@
-# HT ISO Creator 1.0.2 — User Guide
+# HT ISO Creator 1.1.0 — User Guide
 
 HT ISO Creator makes **data ISO images** from a folder on your computer and checks that each image is correct. An ISO image is a single file that holds a complete copy of the folder. You can open it in Windows, burn it to a disc, or keep it as an archive.
 
