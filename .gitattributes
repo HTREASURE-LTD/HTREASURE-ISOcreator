@@ -1,2 +1,4 @@
 # Signed advisory test data must stay byte-for-byte identical (no line-ending conversion).
 Tests/HTISOCreator.Tests/StandardsFixtures/interop/** -text
+# Must stay byte-identical to ht-software-standards security/keys/trusted-keys.json (Build-Release compares them).
+HTISOCreator/Resources/trusted-keys.json -text
