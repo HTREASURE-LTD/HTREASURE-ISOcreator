@@ -33,7 +33,11 @@ namespace HTISOCreator.Forms
             isoTextBox.Text = isoPath ?? string.Empty;
             sourceTextBox.Text = sourceFolder ?? string.Empty;
             hashCheckBox.Checked = compareHashes;
-            mountCheckBox.Checked = mountWithWindows;
+            mountCheckBox.Checked = mountWithWindows && WindowsMountChecker.IsAvailable;
+            if (!WindowsMountChecker.IsAvailable)
+            {
+                mountCheckBox.Text += " (Windows 8 or later)";
+            }
         }
 
         /// <summary>Opens the window showing a result that was already produced (for example after creation).</summary>
@@ -356,7 +360,7 @@ namespace HTISOCreator.Forms
             sourceBrowseButton.Enabled = !running;
             hashCheckBox.Enabled = !running && hasSource;
             namesComboBox.Enabled = !running && hasSource;
-            mountCheckBox.Enabled = !running;
+            mountCheckBox.Enabled = !running && WindowsMountChecker.IsAvailable;
             verifyButton.Enabled = !running && isoTextBox.Text.Trim().Length > 0;
             verifyButton.BackColor = verifyButton.Enabled ? ThemeManager.Current.Accent : ThemeManager.Current.DisabledAccent;
             cancelButton.Enabled = running;

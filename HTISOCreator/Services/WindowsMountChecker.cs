@@ -29,9 +29,30 @@ namespace HTISOCreator.Services
             _log = log;
         }
 
+        /// <summary>
+        /// Windows can mount ISO images (Mount-DiskImage) from Windows 8 onwards. On Windows 7 the check is skipped;
+        /// creation and every other verification check work the same.
+        /// </summary>
+        public static bool IsAvailable
+        {
+            get { return IsAvailableOn(Environment.OSVersion.Version); }
+        }
+
+        public const string UnavailableMessage = "Not available on Windows 7: Windows can mount ISO images only from Windows 8 onwards. The other checks are not affected.";
+
+        internal static bool IsAvailableOn(Version windowsVersion)
+        {
+            return windowsVersion >= new Version(6, 2);
+        }
+
         public virtual VerificationCheck Check(string isoPath, IsoImageInfo image, CancellationToken cancellationToken)
         {
             const string Name = "Windows mount";
+            if (!IsAvailable)
+            {
+                return new VerificationCheck(Name, VerificationCheckStatus.Skipped, UnavailableMessage);
+            }
+
             string quoted = "'" + Path.GetFullPath(isoPath).Replace("'", "''") + "'";
 
             string output;

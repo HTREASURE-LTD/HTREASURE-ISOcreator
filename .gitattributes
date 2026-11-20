@@ -1,0 +1,2 @@
+# Signed advisory test data must stay byte-for-byte identical (no line-ending conversion).
+Tests/HTISOCreator.Tests/StandardsFixtures/interop/** -text

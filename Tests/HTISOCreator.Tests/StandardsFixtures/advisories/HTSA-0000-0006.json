@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "HTSA-0000-0006",
+  "appId": "ht-fixture-app",
+  "title": "[TEST FIXTURE] Beta channel preview issue",
+  "summary": "This is a TEST FIXTURE used only by automated tests and screenshots. It does not describe a real vulnerability.\n\nIllustrative description: **beta channel preview issue** in a fictional component.",
+  "severity": "medium",
+  "published": "2026-01-15",
+  "updated": "2026-02-01",
+  "verificationStatus": "verified",
+  "affected": [
+    {
+      "platforms": [
+        "windows-x64",
+        "windows-arm64"
+      ],
+      "channels": [
+        "beta"
+      ],
+      "status": "affected",
+      "ranges": [
+        {
+          "introduced": "2.1.0-beta.1",
+          "fixed": "2.1.0-beta.3"
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "windows-x64",
+        "windows-arm64"
+      ],
+      "channels": [
+        "stable"
+      ],
+      "status": "not-affected"
+    }
+  ],
+  "remediation": "Install the fixed release when it is available.",
+  "fixedVersions": [
+    "2.1.0-beta.3"
+  ]
+}

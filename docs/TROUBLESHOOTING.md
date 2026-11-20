@@ -31,6 +31,14 @@ Most messages explain the problem and what to do. Error messages also include a 
 | **"… is not an ISO 9660 image or a UDF image"** | The file isn't a disc image (for example a renamed ZIP), or it is badly damaged. |
 | **"UDF: … which this reader does not support"** | Images from other tools sometimes use UDF features outside UDF 1.02–2.01 physical partitions. The image may still be valid; mount it in Windows to check it. |
 
+## Security Advisory History
+| Message | Cause and solution |
+|---|---|
+| **"Offline history: snapshot bundled with this release…"** | Normal. The advisories shown come from the release you installed, so they are historical, not a current assessment. Newer advisories appear when you install a newer release. |
+| **"The advisory service is not configured for this product."** | HTREASURE LTD has no online advisory service for HT ISO Creator yet, so **Check for Advisories** can't fetch newer data. Nothing is wrong with your installation. |
+| **"No verified advisory data is available…" / "could not be verified"** | The bundled advisory snapshot is missing, unsigned or altered, so it isn't shown. The status is then *Unknown*. Reinstall HT ISO Creator from a file whose SHA-256 matches `SHA256SUMS.txt`. |
+| **"Development build: the bundled advisory snapshot is not signed."** | Shown only by internal test builds, never by a release. |
+
 ## Source folders
 - **Network folders** (`\\server\share\…`) work, but are only as fast and reliable as the network. Avoid shares that other people are changing at the same time.
 - **OneDrive folders:** files that are *online-only* are downloaded as they are read, so creation may be slower and needs an internet connection. To avoid that, right-click the folder and choose *Always keep on this device* first.
@@ -43,6 +51,8 @@ Most messages explain the problem and what to do. Error messages also include a 
 | **"HT ISO Creator needs Microsoft .NET Framework 4.6.2 or later"** | Install .NET Framework 4.8 from Windows Update or Microsoft, then run the installer again. |
 | **"Windows protected your PC" (SmartScreen)** | Version 1.0.2 is not digitally signed. Check the file against `SHA256SUMS.txt` (see [INSTALLATION.md](INSTALLATION.md)), then choose **More info > Run anyway**. |
 | **"Setup has detected that HT ISO Creator is currently running"** | Close every HT ISO Creator window, then click **OK**. A silent installation stops with exit code 1 in this case; close the program and run it again. |
+| **"This program does not support the version of Windows your computer is running"** | HT ISO Creator needs Windows 7 SP1, 8.1, 10 or 11. On Windows 7, install Service Pack 1; the original Windows 8 needs the free update to Windows 8.1. |
+| **Windows mount check is unavailable (Windows 7)** | Windows 7 can't mount ISO images. Use the other verification checks; they work the same. |
 | **Settings are gone after reinstalling** | Settings are kept on uninstall unless their folder was deleted: `%APPDATA%\HTREASURE LTD\HT ISO Creator`. |
 
 ## Getting help

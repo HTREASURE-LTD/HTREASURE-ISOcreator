@@ -21,4 +21,10 @@
     <ProjectReference Include="..\..\HTISOCreator\HTISOCreator.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- Conformance fixtures from HTREASURE-LTD/ht-software-standards (security/test-fixtures; fictional data),
+         plus a snapshot signed by the standards' own ht-standards tool with a throwaway test key (interop). -->
+    <None Include="StandardsFixtures\**\*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

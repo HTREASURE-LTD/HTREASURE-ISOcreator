@@ -3,18 +3,19 @@
 ## Requirements
 | | |
 |---|---|
-| Windows | Windows 10 or Windows 11 (64-bit or 32-bit) |
-| .NET Framework | **4.6.2 or later.** Windows 10 version 1607 and later and Windows 11 already include it (Windows 11 has 4.8). |
-| UDF formats | The Windows IMAPI2 file system component, which is part of Windows 10 and 11. |
+| Windows | Windows 7 SP1, Windows 8.1, Windows 10 or Windows 11 (64-bit or 32-bit). The original Windows 8 is not supported; upgrade it to Windows 8.1 (free). |
+| .NET Framework | **4.6.2 or later.** Windows 10 version 1607 and later and Windows 11 already include it (Windows 11 has 4.8). On Windows 7 SP1 and Windows 8.1, install .NET Framework 4.8 from Microsoft (Windows Update, or https://dotnet.microsoft.com/download/dotnet-framework) first. |
+| UDF formats | The Windows IMAPI2 file system component, which is part of Windows 7 and later. |
+| Windows mount check | Optional verification check; needs Windows 8 or later. On Windows 7 it is shown as unavailable, and every other feature works the same. |
 | Disk space | About 1 MB for the program, plus room for the images you create. |
 | Administrator rights | Needed only to install for all users. "Install for me only" and the portable version don't need them. |
 
 ## Option 1: Installer (recommended)
 1. Run `HTISOCreator_Setup_v1.0.2.exe`.
-2. Choose **Install for all users** (needs administrator rights; installs to `C:\Program Files\HT ISO Creator`) or **Install for me only** (no administrator rights; installs to `%LOCALAPPDATA%\Programs\HT ISO Creator`).
+2. Choose **Install for all users** (needs administrator rights; installs to `C:\Program Files\HTREASURE\HT ISO Creator`) or **Install for me only** (no administrator rights; installs to `%LOCALAPPDATA%\Programs\HTREASURE\HT ISO Creator`). Upgrading an existing installation keeps its folder.
 3. Read the **licence agreement** and accept it to continue. HT ISO Creator is free for personal, non-commercial use; see `LICENSE.txt`.
 4. Follow the wizard. You can change the folder, and optionally create a desktop shortcut.
-5. HT ISO Creator appears in the Start menu.
+5. HT ISO Creator appears in the Start menu, in the **HTREASURE** folder.
 
 The installer:
 - adds an entry to **Settings > Apps > Installed apps** so you can uninstall it;

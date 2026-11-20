@@ -6,17 +6,60 @@
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>HTISOCreator</RootNamespace>
     <AssemblyName>HTISOCreator</AssemblyName>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
     <Nullable>disable</Nullable>
-    <ApplicationIcon>Resources\app.ico</ApplicationIcon>
+    <!-- HT ISO Creator's product icon from the HTREASURE brand kit (branding\README.md). -->
+    <ApplicationIcon>..\branding\Icons\HT-iso-maker.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <!--
+    Assembly attributes. Version, product and publisher are in Properties\AssemblyInfo.cs. The SDK generates only
+    the copyright (with the build year, as the HTREASURE brand rules require: never hard-coded) and the
+    HTREASURE standards metadata below. Build with -p:HTCopyrightYear=2026 to fix the year for a release.
+  -->
+  <PropertyGroup>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <GenerateNeutralResourcesLanguageAttribute>false</GenerateNeutralResourcesLanguageAttribute>
+    <HTCopyrightYear Condition="'$(HTCopyrightYear)' == ''">$([System.DateTime]::Now.ToString('yyyy'))</HTCopyrightYear>
+    <Copyright>Copyright © $(HTCopyrightYear) HTREASURE LTD. All rights reserved.</Copyright>
+  </PropertyGroup>
+
+  <!--
+    HTREASURE software standards (HTREASURE-LTD/ht-software-standards, standards version 1.0.0).
+    HTAdvisoryServiceUrl stays empty until the HTREASURE advisory service is provisioned for this product.
+    Debug builds accept an unsigned bundled advisory snapshot; Release builds require a signed one.
+  -->
+  <PropertyGroup>
+    <HTAppId>ht-iso-creator</HTAppId>
+    <HTChannel>stable</HTChannel>
+    <HTPlatforms>windows-x86,windows-x64,windows-arm64</HTPlatforms>
+    <HTMinimumOsVersion>6.1.7601</HTMinimumOsVersion>
+    <HTAdvisoryServiceUrl></HTAdvisoryServiceUrl>
+    <HTBuildId></HTBuildId>
+    <HTAllowUnsignedSnapshot Condition="'$(HTAllowUnsignedSnapshot)' == '' and '$(Configuration)' == 'Release'">false</HTAllowUnsignedSnapshot>
+    <HTAllowUnsignedSnapshot Condition="'$(HTAllowUnsignedSnapshot)' == ''">true</HTAllowUnsignedSnapshot>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Regenerate with Tools\Make-Icon.ps1. Embedded so forms can show every icon size. -->
-    <EmbeddedResource Include="Resources\app.ico" LogicalName="HTISOCreator.app.ico" />
+    <AssemblyMetadata Include="HTAppId" Value="$(HTAppId)" />
+    <AssemblyMetadata Include="HTChannel" Value="$(HTChannel)" />
+    <AssemblyMetadata Include="HTBuildId" Value="$(HTBuildId)" />
+    <AssemblyMetadata Include="HTAdvisoryServiceUrl" Value="$(HTAdvisoryServiceUrl)" />
+    <AssemblyMetadata Include="HTAllowUnsignedSnapshot" Value="$(HTAllowUnsignedSnapshot)" />
+    <!-- Trust anchors are compiled into the program, so they cannot be swapped next to it. -->
+    <EmbeddedResource Include="Resources\trusted-keys.json" LogicalName="HTREASURE.Standards.trusted-keys.json" />
+    <!-- Embedded so forms can show every icon size. -->
+    <EmbeddedResource Include="..\branding\Icons\HT-iso-maker.ico" LogicalName="HTISOCreator.app.ico" Link="Resources\HT-iso-maker.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +72,8 @@
   <ItemGroup>
     <!-- Late-bound (dynamic) calls to the Windows IMAPI2 file system image COM component. -->
     <Reference Include="Microsoft.CSharp" />
+    <!-- JavaScriptSerializer: reads advisory data (part of .NET Framework). -->
+    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
 
   <ItemGroup>

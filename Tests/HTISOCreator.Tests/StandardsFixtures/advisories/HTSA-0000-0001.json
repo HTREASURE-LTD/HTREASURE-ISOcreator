@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "HTSA-0000-0001",
+  "appId": "ht-fixture-app",
+  "title": "[TEST FIXTURE] Fixed path handling issue",
+  "summary": "This is a TEST FIXTURE used only by automated tests and screenshots. It does not describe a real vulnerability.\n\nIllustrative description: **fixed path handling issue** in a fictional component.",
+  "severity": "high",
+  "published": "2026-01-15",
+  "updated": "2026-02-01",
+  "verificationStatus": "verified",
+  "affected": [
+    {
+      "platforms": [
+        "windows-x64",
+        "windows-arm64"
+      ],
+      "channels": [
+        "stable"
+      ],
+      "status": "affected",
+      "ranges": [
+        {
+          "introduced": "1.0.0",
+          "fixed": "1.2.0"
+        }
+      ],
+      "fixedBuilds": [
+        "1.1.5+backport.1"
+      ],
+      "assessedThrough": "2.1.0"
+    }
+  ],
+  "remediation": "Install the fixed release when it is available.",
+  "fixedVersions": [
+    "1.2.0",
+    "1.1.5+backport.1"
+  ],
+  "releaseNotes": "## 1.2.0\n- Corrected the fictional path handling issue.\n- Backported to 1.1.5+backport.1."
+}

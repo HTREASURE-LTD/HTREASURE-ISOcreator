@@ -48,20 +48,20 @@ namespace HTISOCreator.Helpers
             IsDark = false,
             Window = Color.White,
             Text = SystemColors.ControlText,
-            DimText = Color.FromArgb(96, 96, 96),
-            Accent = Color.FromArgb(22, 58, 110),
+            DimText = BrandColors.MutedText,
+            Accent = BrandColors.TechnologyBlue,
             AccentText = Color.White,
             DisabledAccent = Color.FromArgb(196, 202, 212),
             InputBack = SystemColors.Window,
             ButtonBack = SystemColors.Control,
-            Border = Color.FromArgb(204, 204, 204),
+            Border = BrandColors.LineGrey,
             ErrorText = Color.FromArgb(176, 32, 32),
             WarningText = Color.FromArgb(156, 96, 0),
-            StripBack = Color.FromArgb(243, 245, 248),
-            Highlight = Color.FromArgb(220, 230, 245),
-            HeaderBack = Color.FromArgb(22, 58, 110),
+            StripBack = BrandColors.PageGrey,
+            Highlight = Color.FromArgb(220, 232, 250),
+            HeaderBack = BrandColors.DeepNavy,
             HeaderText = Color.White,
-            HeaderDimText = Color.FromArgb(196, 212, 236)
+            HeaderDimText = BrandColors.SilverGrey
         };
 
         public static readonly ThemePalette Dark = new ThemePalette
@@ -70,7 +70,7 @@ namespace HTISOCreator.Helpers
             Window = Color.FromArgb(32, 34, 38),
             Text = Color.FromArgb(230, 232, 235),
             DimText = Color.FromArgb(160, 166, 174),
-            Accent = Color.FromArgb(110, 160, 232),
+            Accent = BrandColors.ElectricBlue,
             AccentText = Color.FromArgb(20, 22, 26),
             DisabledAccent = Color.FromArgb(70, 76, 86),
             InputBack = Color.FromArgb(45, 48, 54),
@@ -80,9 +80,9 @@ namespace HTISOCreator.Helpers
             WarningText = Color.FromArgb(240, 190, 90),
             StripBack = Color.FromArgb(40, 43, 48),
             Highlight = Color.FromArgb(62, 76, 98),
-            HeaderBack = Color.FromArgb(24, 44, 76),
+            HeaderBack = BrandColors.DeepNavy,
             HeaderText = Color.White,
-            HeaderDimText = Color.FromArgb(176, 194, 222)
+            HeaderDimText = BrandColors.SilverGrey
         };
     }
 

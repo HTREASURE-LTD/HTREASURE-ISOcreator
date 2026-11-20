@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "HTSA-0000-0007",
+  "appId": "ht-fixture-app",
+  "title": "[TEST FIXTURE] Issue without a released fix",
+  "summary": "This is a TEST FIXTURE used only by automated tests and screenshots. It does not describe a real vulnerability.\n\nIllustrative description: **issue without a released fix** in a fictional component.",
+  "severity": "medium",
+  "published": "2026-01-15",
+  "updated": "2026-02-01",
+  "verificationStatus": "verified",
+  "affected": [
+    {
+      "platforms": [
+        "windows-x64",
+        "windows-arm64"
+      ],
+      "channels": [
+        "stable"
+      ],
+      "status": "affected",
+      "ranges": [
+        {
+          "introduced": "1.0.0"
+        }
+      ]
+    }
+  ],
+  "remediation": "No fixed release is available yet. HTREASURE will publish an update.",
+  "mitigation": "Disable the fictional network share option in Settings until a fix is released."
+}

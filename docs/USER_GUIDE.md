@@ -99,9 +99,9 @@ Your free disk space is checked before writing, using the exact image size. If H
 **Results.** Every check is shown as **Passed**, **Failed**, **Warning** or **Skipped**. A skipped check is never counted as passed. The verification level is always stated: *Structural verification only*, *Source verification (paths and sizes)* or *Full source-content verification (paths, sizes and SHA-256)*. **Save Report...** saves the result as text.
 
 ## 10. Mount an ISO in Windows
-Windows 10 and 11 can open ISO files without extra software. Double-click the ISO in File Explorer, or right-click it and choose **Mount**. The image appears as a new drive. To finish, right-click that drive in *This PC* and choose **Eject**.
+Windows 8 and later can open ISO files without extra software. Double-click the ISO in File Explorer, or right-click it and choose **Mount**. The image appears as a new drive. To finish, right-click that drive in *This PC* and choose **Eject**.
 
-HT ISO Creator's mount check (above) does this for you and ejects the drive afterwards.
+HT ISO Creator's mount check (above) does this for you and ejects the drive afterwards. Windows 7 can't mount ISO images, so there the mount check is unavailable; use the other checks.
 
 ## 11. Export reports
 | Report | Where |
@@ -124,7 +124,18 @@ Error messages give a short **reference** such as `8c03145c`. It identifies the 
 - **Creation History** (Ctrl+H): every attempt with its result and verification. You can search, sort, verify again, open the folder or export the list.
 - **Settings** (Ctrl+,): default output folder, file system, volume name, target disc, verification, remembering the last folders, completion notification and theme (System, Light or Dark).
 
-## 14. Keyboard shortcuts
+## 14. Security Advisory History
+**Help > Security Advisories** (or **Help > About > Security Advisory History**, or the link in the About window) shows the security advisories that HTREASURE LTD has published for HT ISO Creator, and what they mean for your installed version. It works offline.
+
+- **The banner** always says what the information is based on. Normally it is the *advisory snapshot bundled with this release*: historical information from the day the release was built, not a current assessment.
+- **Status** of each advisory: *Fixed* (verified as corrected in your version), *Affected*, *Under Review*, *Unknown* (not enough verified information) or *Not Affected*. A newer version number alone is never treated as fixed.
+- **View Details** (or double-click) shows the full advisory, why it has that status, and what to do. References open in your browser only after you confirm.
+- **Export Security Report...** saves the assessment as Markdown or JSON, for example for an organisation's records. It contains no computer or user names.
+- **Check for Advisories** and **Check for Security Updates** need the HTREASURE advisory and update services, which are not set up for HT ISO Creator yet. HT ISO Creator never connects to the internet for advisories and never installs anything by itself.
+
+An empty list means no advisories are known in the data shown. As the window says, a lack of known advisories is not proof that the software is free from vulnerabilities.
+
+## 15. Keyboard shortcuts
 | Keys | Action |
 |---|---|
 | Ctrl+O | Select source folder |

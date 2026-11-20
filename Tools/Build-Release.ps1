@@ -16,6 +16,16 @@
 
     Requirements: .NET SDK (for dotnet build/test) and Inno Setup 6 (ISCC.exe).
 
+    HTREASURE software standards: the release also bundles security\advisory-snapshot.json (the offline Security
+    Advisory History, generated from the central registry) and ht-compatibility.json (the release manifest). Both
+    are made by the ht-standards tool from HTREASURE-LTD/ht-software-standards, checked out next to this
+    repository (..\ht-software-standards) or given with -StandardsRoot. The trusted keys compiled into the program
+    (HTISOCreator\Resources\trusted-keys.json) must match the registry's security\keys\trusted-keys.json.
+
+    As the standards require, a release build signs the snapshot: pass -AdvisorySigningKey <offline PEM> and
+    -AdvisoryKeyId <id>; never commit the key. Without them the build stops, unless -AllowUnsignedSnapshot is
+    given for an internal test build; that build's program then accepts an unsigned snapshot and says so.
+
     -RefreshDocs rebuilds only the documentation and source packages and SHA256SUMS.txt, and keeps the
     installer and portable package that were already built and tested. Use it after changing TEST_REPORT.md
     or developer-only files. It stops if any document that the installer and portable package contain has
@@ -30,12 +40,19 @@ param(
     [string]$Version = "1.0.2",
     [switch]$SkipTests,
     [switch]$RefreshDocs,
-    [string]$Iscc
+    [string]$Iscc,
+    [string]$StandardsRoot,
+    [string]$AdvisorySigningKey,
+    [string]$AdvisoryKeyId,
+    [switch]$AllowUnsignedSnapshot,
+    # Where artifacts\v<version> is created; defaults to the repository's artifacts folder.
+    [string]$OutputRoot
 )
 
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
-$out = Join-Path $root "artifacts\v$Version"
+if (-not $OutputRoot) { $OutputRoot = Join-Path $root "artifacts" }
+$out = Join-Path $OutputRoot "v$Version"
 $stage = Join-Path $out "stage\HTISOCreator"
 $binary = Join-Path $root "HTISOCreator\bin\Release\net462"
 
@@ -86,11 +103,36 @@ if (-not $Iscc) {
 }
 if (-not $Iscc -or -not (Test-Path $Iscc)) { throw "Inno Setup 6 (ISCC.exe) was not found. Install it from https://jrsoftware.org/isdl.php or pass -Iscc." }
 
+Step "HTREASURE software standards"
+if (-not $StandardsRoot) { $StandardsRoot = Join-Path (Split-Path -Parent $root) "ht-software-standards" }
+if (-not (Test-Path (Join-Path $StandardsRoot "security\keys\trusted-keys.json"))) {
+    throw "HTREASURE-LTD/ht-software-standards was not found at $StandardsRoot. Check it out next to this repository or pass -StandardsRoot."
+}
+"  Standards: $StandardsRoot (" + (& git -C $StandardsRoot rev-parse --short HEAD 2>$null) + ")"
+$registryKeys = Join-Path $StandardsRoot "security\keys\trusted-keys.json"
+$programKeys = Join-Path $root "HTISOCreator\Resources\trusted-keys.json"
+if ((Get-FileHash $registryKeys).Hash -ne (Get-FileHash $programKeys).Hash) {
+    throw "HTISOCreator\Resources\trusted-keys.json differs from the registry's trusted keys. Copy $registryKeys over it and rebuild."
+}
+$signed = [bool]$AdvisorySigningKey
+if ($signed -and -not $AdvisoryKeyId) { throw "-AdvisoryKeyId is required with -AdvisorySigningKey." }
+if (-not $signed -and -not $AllowUnsignedSnapshot) {
+    throw "Release builds must sign the bundled advisory snapshot (HTREASURE software standards). Pass -AdvisorySigningKey <pem> -AdvisoryKeyId <id>, or -AllowUnsignedSnapshot for an internal test build."
+}
+$cliProject = Join-Path $StandardsRoot "dotnet\tools\HTREASURE.Standards.Cli\HTREASURE.Standards.Cli.csproj"
+& dotnet build $cliProject -c Release -v quiet | Out-Null
+if ($LASTEXITCODE -ne 0) { throw "The ht-standards tool could not be built." }
+$cli = Get-ChildItem (Join-Path $StandardsRoot "dotnet\tools\HTREASURE.Standards.Cli\bin\Release") -Recurse -Filter "ht-standards.dll" | Select-Object -First 1 -ExpandProperty FullName
+& dotnet $cli validate --path (Join-Path $StandardsRoot "security\advisories")
+if ($LASTEXITCODE -ne 0) { throw "The advisory registry failed validation." }
+if (-not $signed) { Write-Host "  WARNING: internal test build. The advisory snapshot will NOT be signed." -ForegroundColor Yellow }
+
 Step "Clean Release build"
 Push-Location $root
 try {
     & dotnet clean HTISOCreator.sln -c Release -v quiet | Out-Null
-    $buildLog = & dotnet build HTISOCreator.sln -c Release -warnaserror 2>&1
+    $unsignedProperty = if ($signed) { "-p:HTAllowUnsignedSnapshot=false" } else { "-p:HTAllowUnsignedSnapshot=true" }
+    $buildLog = & dotnet build HTISOCreator.sln -c Release -warnaserror $unsignedProperty 2>&1
     $buildLog | Select-String -Pattern "Warning\(s\)|Error\(s\)|Build succeeded" | ForEach-Object { $_.Line.Trim() }
     if ($LASTEXITCODE -ne 0) { $buildLog | Select-Object -Last 30; throw "The Release build failed." }
 
@@ -111,6 +153,17 @@ foreach ($file in "HTISOCreator.exe", "HTISOCreator.exe.config", "DiscUtils.Core
 }
 foreach ($doc in $userDocs) { Copy-Item (Join-Path $root $doc) (Join-Path $stage "Documentation") }
 Copy-Item (Join-Path $root "LICENSE.txt") $stage
+
+# Offline advisory history and release manifest (generated; never edited by hand).
+$securityOut = Join-Path $stage "security"
+$signArgs = if ($signed) { @("--key", $AdvisorySigningKey, "--key-id", $AdvisoryKeyId, "--require-signature") } else { @() }
+& dotnet $cli snapshot --security-root (Join-Path $StandardsRoot "security") --app-id ht-iso-creator --out-dir $securityOut @signArgs
+if ($LASTEXITCODE -ne 0) { throw "The advisory snapshot could not be generated." }
+& dotnet $cli manifest --app-id ht-iso-creator --name "HT ISO Creator" --version $Version --channel stable `
+    --platforms "windows-x86,windows-x64,windows-arm64" --tfm net462 --min-os 6.1.7601 `
+    --snapshot (Join-Path $securityOut "advisory-snapshot.json") --service-enabled false --out (Join-Path $stage "ht-compatibility.json")
+if ($LASTEXITCODE -ne 0) { throw "ht-compatibility.json could not be generated." }
+
 $exeInfo = (Get-Item (Join-Path $stage "HTISOCreator.exe")).VersionInfo
 if ($exeInfo.ProductVersion -ne $Version -or $exeInfo.CompanyName -ne "HTREASURE LTD") {
     throw "HTISOCreator.exe reports product version '$($exeInfo.ProductVersion)' by '$($exeInfo.CompanyName)'."

@@ -21,6 +21,7 @@ namespace HTISOCreator.Forms
         {
             ThemeManager.Apply(this);
             versionValueLabel.Text = VersionText();
+            copyrightLabel.Text = CopyrightText();
             toolTip.SetToolTip(versionValueLabel, BuildDetails());
         }
 
@@ -36,6 +37,13 @@ namespace HTISOCreator.Forms
             const string configuration = "Release";
 #endif
             return product + " (build " + file + ", " + configuration + ")";
+        }
+
+        /// <summary>"Copyright © {build year} HTREASURE LTD. All rights reserved.", stamped into the program at build time.</summary>
+        internal static string CopyrightText()
+        {
+            var attribute = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyCopyrightAttribute>();
+            return attribute != null ? attribute.Copyright : "Copyright © HTREASURE LTD. All rights reserved.";
         }
 
         /// <summary>Program, runtime and operating system details for support requests.</summary>
@@ -99,6 +107,11 @@ namespace HTISOCreator.Forms
                 LoggingService.Instance.Error("Could not open " + ShellHelper.CompanyWebsite, ex);
                 MessageBox.Show(this, "The website could not be opened. You can visit it at:\n\n" + ShellHelper.CompanyWebsite, Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void SecurityLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MainForm.ShowSecurityAdvisoryHistory(this);
         }
 
         private void OkButton_Click(object sender, EventArgs e)

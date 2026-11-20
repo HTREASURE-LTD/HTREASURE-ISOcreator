@@ -76,6 +76,10 @@
             this.licenceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpDocsSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutAppMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.securityHistoryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.securityAdvisoriesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.headerPanel = new System.Windows.Forms.Panel();
             this.headerIcon = new System.Windows.Forms.PictureBox();
             this.headerLabel = new System.Windows.Forms.Label();
@@ -132,6 +136,7 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.formatStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.brandStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.elapsedTimer = new System.Windows.Forms.Timer(this.components);
@@ -317,6 +322,7 @@
             this.shortcutsMenuItem,
             this.licenceMenuItem,
             this.noticesMenuItem,
+            this.securityAdvisoriesMenuItem,
             this.helpMenuSeparator,
             this.aboutMenuItem});
             this.helpMenu.Name = "helpMenu";
@@ -391,10 +397,40 @@
             //
             // aboutMenuItem
             //
+            // Help > About is a submenu (HTREASURE software standards): this application, and its Security Advisory History.
+            this.aboutMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutAppMenuItem,
+            this.aboutSeparator,
+            this.securityHistoryMenuItem});
             this.aboutMenuItem.Name = "aboutMenuItem";
             this.aboutMenuItem.Size = new System.Drawing.Size(220, 22);
-            this.aboutMenuItem.Text = "&About HT ISO Creator";
-            this.aboutMenuItem.Click += new System.EventHandler(this.AboutMenuItem_Click);
+            this.aboutMenuItem.Text = "&About";
+            //
+            // aboutAppMenuItem
+            //
+            this.aboutAppMenuItem.Name = "aboutAppMenuItem";
+            this.aboutAppMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.aboutAppMenuItem.Text = "&About HT ISO Creator";
+            this.aboutAppMenuItem.Click += new System.EventHandler(this.AboutMenuItem_Click);
+            //
+            // aboutSeparator
+            //
+            this.aboutSeparator.Name = "aboutSeparator";
+            this.aboutSeparator.Size = new System.Drawing.Size(227, 6);
+            //
+            // securityHistoryMenuItem
+            //
+            this.securityHistoryMenuItem.Name = "securityHistoryMenuItem";
+            this.securityHistoryMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.securityHistoryMenuItem.Text = "Security Advisory &History";
+            this.securityHistoryMenuItem.Click += new System.EventHandler(this.SecurityAdvisoriesMenuItem_Click);
+            //
+            // securityAdvisoriesMenuItem
+            //
+            this.securityAdvisoriesMenuItem.Name = "securityAdvisoriesMenuItem";
+            this.securityAdvisoriesMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.securityAdvisoriesMenuItem.Text = "Security &Advisories";
+            this.securityAdvisoriesMenuItem.Click += new System.EventHandler(this.SecurityAdvisoriesMenuItem_Click);
             //
             // headerPanel
             //
@@ -1145,6 +1181,7 @@
             //
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusStripLabel,
+            this.brandStripLabel,
             this.formatStripLabel});
             this.statusStrip.Location = new System.Drawing.Point(0, 628);
             this.statusStrip.Name = "statusStrip";
@@ -1159,6 +1196,12 @@
             this.statusStripLabel.Spring = true;
             this.statusStripLabel.Text = "Ready";
             this.statusStripLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            //
+            // brandStripLabel
+            //
+            this.brandStripLabel.Name = "brandStripLabel";
+            this.brandStripLabel.Size = new System.Drawing.Size(260, 17);
+            this.brandStripLabel.Text = "© HTREASURE LTD · An HTREASURE LTD product";
             //
             // formatStripLabel
             //
@@ -1258,6 +1301,10 @@
         private System.Windows.Forms.ToolStripMenuItem licenceMenuItem;
         private System.Windows.Forms.ToolStripSeparator helpDocsSeparator;
         private System.Windows.Forms.ToolStripMenuItem aboutMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutAppMenuItem;
+        private System.Windows.Forms.ToolStripSeparator aboutSeparator;
+        private System.Windows.Forms.ToolStripMenuItem securityHistoryMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem securityAdvisoriesMenuItem;
         private System.Windows.Forms.Panel headerPanel;
         private System.Windows.Forms.PictureBox headerIcon;
         private System.Windows.Forms.Label headerLabel;
@@ -1314,6 +1361,7 @@
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel statusStripLabel;
         private System.Windows.Forms.ToolStripStatusLabel formatStripLabel;
+        private System.Windows.Forms.ToolStripStatusLabel brandStripLabel;
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Timer elapsedTimer;

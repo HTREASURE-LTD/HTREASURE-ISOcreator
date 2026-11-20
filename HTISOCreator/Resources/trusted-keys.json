@@ -1,0 +1,4 @@
+{
+  "description": "Public keys trusted for HTREASURE advisory and release metadata. No production key has been provisioned yet: generate one with 'ht-standards keygen' on an offline machine, add its public key here, and keep the private key out of this repository.",
+  "keys": []
+}

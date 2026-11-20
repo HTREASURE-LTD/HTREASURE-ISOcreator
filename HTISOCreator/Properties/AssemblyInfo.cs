@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Creates and verifies data ISO images (ISO 9660, Joliet, UDF) from folders.")]
 [assembly: AssemblyCompany("HTREASURE LTD")]
 [assembly: AssemblyProduct("HT ISO Creator")]
-[assembly: AssemblyCopyright("Copyright © 2026 HTREASURE LTD")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]

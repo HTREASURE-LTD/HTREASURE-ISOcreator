@@ -41,6 +41,11 @@
             this.licenceLabel = new System.Windows.Forms.Label();
             this.noticesLinkLabel = new System.Windows.Forms.LinkLabel();
             this.licenceLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.attributionLabel = new System.Windows.Forms.Label();
+            this.supportLabel = new System.Windows.Forms.Label();
+            this.supportValueLabel = new System.Windows.Forms.Label();
+            this.companyLabel = new System.Windows.Forms.Label();
+            this.securityLinkLabel = new System.Windows.Forms.LinkLabel();
             this.okButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             //
@@ -48,7 +53,7 @@
             //
             this.titleLabel.AutoSize = true;
             this.titleLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.titleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(58)))), ((int)(((byte)(110)))));
+            this.titleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(61)))), ((int)(((byte)(145)))));
             this.titleLabel.Location = new System.Drawing.Point(18, 16);
             this.titleLabel.Name = "titleLabel";
             this.titleLabel.Size = new System.Drawing.Size(140, 25);
@@ -59,7 +64,7 @@
             // developerLabel
             //
             this.developerLabel.AutoSize = true;
-            this.developerLabel.Location = new System.Drawing.Point(20, 54);
+            this.developerLabel.Location = new System.Drawing.Point(20, 68);
             this.developerLabel.Name = "developerLabel";
             this.developerLabel.Size = new System.Drawing.Size(63, 15);
             this.developerLabel.TabIndex = 1;
@@ -68,7 +73,7 @@
             // developerValueLabel
             //
             this.developerValueLabel.AutoSize = true;
-            this.developerValueLabel.Location = new System.Drawing.Point(100, 54);
+            this.developerValueLabel.Location = new System.Drawing.Point(100, 68);
             this.developerValueLabel.Name = "developerValueLabel";
             this.developerValueLabel.Size = new System.Drawing.Size(73, 15);
             this.developerValueLabel.TabIndex = 2;
@@ -77,7 +82,7 @@
             // versionLabel
             //
             this.versionLabel.AutoSize = true;
-            this.versionLabel.Location = new System.Drawing.Point(20, 76);
+            this.versionLabel.Location = new System.Drawing.Point(20, 90);
             this.versionLabel.Name = "versionLabel";
             this.versionLabel.Size = new System.Drawing.Size(48, 15);
             this.versionLabel.TabIndex = 3;
@@ -86,7 +91,7 @@
             // versionValueLabel
             //
             this.versionValueLabel.AutoSize = true;
-            this.versionValueLabel.Location = new System.Drawing.Point(100, 76);
+            this.versionValueLabel.Location = new System.Drawing.Point(100, 90);
             this.versionValueLabel.Name = "versionValueLabel";
             this.versionValueLabel.Size = new System.Drawing.Size(37, 15);
             this.versionValueLabel.TabIndex = 4;
@@ -95,7 +100,7 @@
             // websiteLabel
             //
             this.websiteLabel.AutoSize = true;
-            this.websiteLabel.Location = new System.Drawing.Point(20, 98);
+            this.websiteLabel.Location = new System.Drawing.Point(20, 112);
             this.websiteLabel.Name = "websiteLabel";
             this.websiteLabel.Size = new System.Drawing.Size(52, 15);
             this.websiteLabel.TabIndex = 10;
@@ -104,7 +109,7 @@
             // websiteLinkLabel
             //
             this.websiteLinkLabel.AutoSize = true;
-            this.websiteLinkLabel.Location = new System.Drawing.Point(100, 98);
+            this.websiteLinkLabel.Location = new System.Drawing.Point(100, 112);
             this.websiteLinkLabel.Name = "websiteLinkLabel";
             this.websiteLinkLabel.Size = new System.Drawing.Size(108, 15);
             this.websiteLinkLabel.TabIndex = 11;
@@ -114,16 +119,16 @@
             //
             // descriptionLabel
             //
-            this.descriptionLabel.Location = new System.Drawing.Point(20, 126);
+            this.descriptionLabel.Location = new System.Drawing.Point(20, 182);
             this.descriptionLabel.Name = "descriptionLabel";
-            this.descriptionLabel.Size = new System.Drawing.Size(420, 48);
+            this.descriptionLabel.Size = new System.Drawing.Size(460, 40);
             this.descriptionLabel.TabIndex = 5;
             this.descriptionLabel.Text = "HT ISO Creator creates and verifies standard data ISO images (ISO 9660, Joliet and UDF) from folders. It does not create bootable images.";
             //
             // copyrightLabel
             //
             this.copyrightLabel.AutoSize = true;
-            this.copyrightLabel.Location = new System.Drawing.Point(20, 182);
+            this.copyrightLabel.Location = new System.Drawing.Point(20, 228);
             this.copyrightLabel.Name = "copyrightLabel";
             this.copyrightLabel.Size = new System.Drawing.Size(232, 15);
             this.copyrightLabel.TabIndex = 6;
@@ -132,9 +137,9 @@
             // licenceLabel
             //
             this.licenceLabel.ForeColor = System.Drawing.Color.DimGray;
-            this.licenceLabel.Location = new System.Drawing.Point(20, 206);
+            this.licenceLabel.Location = new System.Drawing.Point(20, 252);
             this.licenceLabel.Name = "licenceLabel";
-            this.licenceLabel.Size = new System.Drawing.Size(420, 32);
+            this.licenceLabel.Size = new System.Drawing.Size(460, 32);
             this.licenceLabel.TabIndex = 7;
             this.licenceLabel.Tag = "dim";
             this.licenceLabel.Text = "ISO 9660 and Joliet images are written with DiscUtils 0.16.13 (MIT License); UDF images with the Windows IMAPI2 component.";
@@ -142,7 +147,7 @@
             // noticesLinkLabel
             //
             this.noticesLinkLabel.AutoSize = true;
-            this.noticesLinkLabel.Location = new System.Drawing.Point(20, 238);
+            this.noticesLinkLabel.Location = new System.Drawing.Point(20, 288);
             this.noticesLinkLabel.Name = "noticesLinkLabel";
             this.noticesLinkLabel.Size = new System.Drawing.Size(135, 15);
             this.noticesLinkLabel.TabIndex = 8;
@@ -153,7 +158,7 @@
             // licenceLinkLabel
             //
             this.licenceLinkLabel.AutoSize = true;
-            this.licenceLinkLabel.Location = new System.Drawing.Point(190, 238);
+            this.licenceLinkLabel.Location = new System.Drawing.Point(178, 288);
             this.licenceLinkLabel.Name = "licenceLinkLabel";
             this.licenceLinkLabel.Size = new System.Drawing.Size(136, 15);
             this.licenceLinkLabel.TabIndex = 12;
@@ -161,10 +166,60 @@
             this.licenceLinkLabel.Text = "View licence agreement";
             this.licenceLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LicenceLinkLabel_LinkClicked);
             //
+            // attributionLabel
+            //
+            this.attributionLabel.AutoSize = true;
+            this.attributionLabel.ForeColor = System.Drawing.Color.DimGray;
+            this.attributionLabel.Location = new System.Drawing.Point(20, 42);
+            this.attributionLabel.Name = "attributionLabel";
+            this.attributionLabel.Size = new System.Drawing.Size(150, 15);
+            this.attributionLabel.TabIndex = 13;
+            this.attributionLabel.Tag = "dim";
+            this.attributionLabel.Text = "An HTREASURE LTD product";
+            //
+            // supportLabel
+            //
+            this.supportLabel.AutoSize = true;
+            this.supportLabel.Location = new System.Drawing.Point(20, 134);
+            this.supportLabel.Name = "supportLabel";
+            this.supportLabel.Size = new System.Drawing.Size(52, 15);
+            this.supportLabel.TabIndex = 14;
+            this.supportLabel.Text = "Support:";
+            //
+            // supportValueLabel
+            //
+            this.supportValueLabel.AutoSize = true;
+            this.supportValueLabel.Location = new System.Drawing.Point(100, 134);
+            this.supportValueLabel.Name = "supportValueLabel";
+            this.supportValueLabel.Size = new System.Drawing.Size(130, 15);
+            this.supportValueLabel.TabIndex = 15;
+            this.supportValueLabel.Text = "support@htreasure.com";
+            //
+            // companyLabel
+            //
+            this.companyLabel.ForeColor = System.Drawing.Color.DimGray;
+            this.companyLabel.Location = new System.Drawing.Point(20, 158);
+            this.companyLabel.Name = "companyLabel";
+            this.companyLabel.Size = new System.Drawing.Size(460, 17);
+            this.companyLabel.TabIndex = 16;
+            this.companyLabel.Tag = "dim";
+            this.companyLabel.Text = "HTREASURE LTD is registered in England and Wales, company no. 17178941.";
+            //
+            // securityLinkLabel
+            //
+            this.securityLinkLabel.AutoSize = true;
+            this.securityLinkLabel.Location = new System.Drawing.Point(334, 288);
+            this.securityLinkLabel.Name = "securityLinkLabel";
+            this.securityLinkLabel.Size = new System.Drawing.Size(146, 15);
+            this.securityLinkLabel.TabIndex = 17;
+            this.securityLinkLabel.TabStop = true;
+            this.securityLinkLabel.Text = "Security advisory history";
+            this.securityLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.SecurityLinkLabel_LinkClicked);
+            //
             // okButton
             //
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(350, 266);
+            this.okButton.Location = new System.Drawing.Point(390, 322);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(90, 30);
             this.okButton.TabIndex = 9;
@@ -179,7 +234,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.okButton;
-            this.ClientSize = new System.Drawing.Size(460, 312);
+            this.ClientSize = new System.Drawing.Size(500, 368);
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.developerLabel);
             this.Controls.Add(this.developerValueLabel);
@@ -192,6 +247,11 @@
             this.Controls.Add(this.licenceLabel);
             this.Controls.Add(this.noticesLinkLabel);
             this.Controls.Add(this.licenceLinkLabel);
+            this.Controls.Add(this.attributionLabel);
+            this.Controls.Add(this.supportLabel);
+            this.Controls.Add(this.supportValueLabel);
+            this.Controls.Add(this.companyLabel);
+            this.Controls.Add(this.securityLinkLabel);
             this.Controls.Add(this.okButton);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -221,6 +281,11 @@
         private System.Windows.Forms.Label licenceLabel;
         private System.Windows.Forms.LinkLabel noticesLinkLabel;
         private System.Windows.Forms.LinkLabel licenceLinkLabel;
+        private System.Windows.Forms.Label attributionLabel;
+        private System.Windows.Forms.Label supportLabel;
+        private System.Windows.Forms.Label supportValueLabel;
+        private System.Windows.Forms.Label companyLabel;
+        private System.Windows.Forms.LinkLabel securityLinkLabel;
         private System.Windows.Forms.Button okButton;
     }
 }

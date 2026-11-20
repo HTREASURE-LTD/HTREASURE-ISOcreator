@@ -114,6 +114,12 @@ namespace HTISOCreator.Forms
             autoVerifyCheckBox.Checked = settings.AutoVerify;
             verifyHashesCheckBox.Checked = settings.VerifyHashes;
             verifyMountCheckBox.Checked = settings.VerifyWithWindowsMount;
+            if (!Services.WindowsMountChecker.IsAvailable)
+            {
+                // Windows 7 can't mount ISO images; the saved preference is kept for when it can be used.
+                verifyMountCheckBox.Enabled = false;
+                verifyMountCheckBox.Text += " (Windows 8 or later)";
+            }
             capacityComboBox.SelectedItem = CapacityProfile.Find(settings.CapacityProfileId);
             customCapacityUpDown.Value = Math.Max(customCapacityUpDown.Minimum, Math.Min(customCapacityUpDown.Maximum, settings.CustomCapacityMegabytes));
             UpdateEnabledState();

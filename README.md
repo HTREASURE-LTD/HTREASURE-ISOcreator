@@ -20,7 +20,7 @@
 | `HTISOCreator_Stage4_Complete.zip` | Complete source code |
 | `SHA256SUMS.txt` | SHA-256 checksums of the files above |
 
-**Requirements:** Windows 10 or Windows 11 with .NET Framework 4.6.2 or later (Windows 10 version 1607 and later and Windows 11 include it). See [docs/INSTALLATION.md](docs/INSTALLATION.md).
+**Requirements:** Windows 7 SP1, Windows 8.1, Windows 10 or Windows 11, with .NET Framework 4.6.2 or later (Windows 10 version 1607 and later and Windows 11 include it; on Windows 7 SP1 and 8.1, install .NET Framework 4.8 from Microsoft). The original Windows 8 is not supported: upgrade it to Windows 8.1, which is free. See [docs/INSTALLATION.md](docs/INSTALLATION.md).
 
 ## Documentation
 | Document | Contents |
@@ -65,15 +65,24 @@ In order, it:
 1. checks the version is consistent;
 2. does a clean Release build, with warnings treated as errors;
 3. runs all tests;
-4. creates the installer, the portable ZIP, the documentation ZIP and the source ZIP, plus `SHA256SUMS.txt`, in `artifacts\v1.0.2\`.
+4. generates the advisory snapshot and `ht-compatibility.json` with the HTREASURE `ht-standards` tool;
+5. creates the installer, the portable ZIP, the documentation ZIP and the source ZIP, plus `SHA256SUMS.txt`, in `artifacts\v1.0.2\`.
+
+It needs [HTREASURE-LTD/ht-software-standards](https://github.com/HTREASURE-LTD/ht-software-standards) checked out next to this repository (`..\ht-software-standards`), or `-StandardsRoot <folder>`. As the HTREASURE standards require, a release signs the advisory snapshot: add `-AdvisorySigningKey <offline PEM> -AdvisoryKeyId <id>`. Until HTREASURE LTD provisions a signing key, only an internal test build is possible, with `-AllowUnsignedSnapshot`.
+
+### HTREASURE standards
+HT ISO Creator follows the HTREASURE software template and standards:
+- **Branding** (`branding\`, from HTREASURE-LTD/HT-Software-Template): HT ISO Creator's product icon, the HTREASURE colours, company details, installer artwork and the "An HTREASURE LTD product" attribution. The copyright year is set at build time.
+- **Security Advisory History** (mandatory component): **Help > Security Advisories** and **Help > About > Security Advisory History**. The standards' libraries need .NET 10, so `HTISOCreator\Security\` is a .NET Framework 4.6.2 port of their offline part (status rules, validation, ECDSA P-256 signature checks, reports). It passes the standards' conformance fixtures (`Tests\HTISOCreator.Tests\StandardsFixtures`) and verifies snapshots signed by the standards' own tool. Online advisory checks and the software update service are not configured: HTREASURE LTD has no advisory or release feed for this product yet.
 
 ### Repository layout
 ```
 HTISOCreator.sln
-HTISOCreator\              application: Forms, Services, Models, Helpers, Properties, Resources
+HTISOCreator\              application: Forms, Services, Models, Helpers, Security, Properties, Resources
 Tests\HTISOCreator.Tests\  MSTest tests
 installer\HTISOCreator.iss Inno Setup script
-Tools\                     Build-Release.ps1, Verify-Iso.ps1, Make-Icon.ps1
+Tools\                     Build-Release.ps1, Verify-Iso.ps1
+branding\                  HTREASURE brand assets used by the app and installer (see branding\README.md)
 docs\                      user and release documentation
 LICENSE.txt                end-user licence agreement (shown by the installer, shipped next to the program)
 THIRD-PARTY-NOTICES.txt    licence text shipped next to the program

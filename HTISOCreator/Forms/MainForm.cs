@@ -113,6 +113,7 @@ namespace HTISOCreator.Forms
         private void MainForm_Load(object sender, EventArgs e)
         {
             progressBar.Maximum = ProgressScale;
+            brandStripLabel.Text = BrandFooterText();
             fileSystemComboBox.Items.AddRange(FileSystemFormats.All.Select(f => (object)FileSystemFormats.Describe(f)).ToArray());
             SelectFormat(_settings.DefaultFormat);
             capacityComboBox.Items.AddRange(CapacityProfile.All.Cast<object>().ToArray());
@@ -1049,6 +1050,36 @@ namespace HTISOCreator.Forms
             using (var about = new AboutForm())
             {
                 about.ShowDialog(this);
+            }
+        }
+
+        /// <summary>HTREASURE footer: "© {build year} HTREASURE LTD · An HTREASURE LTD product".</summary>
+        internal static string BrandFooterText()
+        {
+            var match = System.Text.RegularExpressions.Regex.Match(AboutForm.CopyrightText(), @"\b(20\d\d)\b");
+            return "© " + (match.Success ? match.Groups[1].Value + " " : string.Empty) + "HTREASURE LTD · An HTREASURE LTD product";
+        }
+
+        /// <summary>Help > Security Advisories and Help > About > Security Advisory History (HTREASURE software standards).</summary>
+        private void SecurityAdvisoriesMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowSecurityAdvisoryHistory(this);
+        }
+
+        internal static void ShowSecurityAdvisoryHistory(IWin32Window owner)
+        {
+            try
+            {
+                using (var form = new SecurityAdvisoryHistoryForm(Security.StandardsRuntime.Advisories))
+                {
+                    form.ShowDialog(owner);
+                }
+            }
+            catch (Exception ex) when (ex is InvalidOperationException || ex is System.Security.Cryptography.CryptographicException || ex is Security.AdvisoryFormatException)
+            {
+                LoggingService.Instance.Error("Could not open the Security Advisory History", ex);
+                MessageBox.Show(owner, "The Security Advisory History could not be opened: " + ex.Message, "Security Advisory History",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

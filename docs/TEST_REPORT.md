@@ -2,6 +2,23 @@
 
 This report lists the tests that were **actually run**, with their results: first for versions 1.0.2 and 1.0.1, then the full quality assurance of version 1.0.0, which they build on. Anything not tested is listed under [Not tested and open issues](#not-tested-and-open-issues).
 
+## Unreleased: HTREASURE software template and standards
+Tested on 20 November 2026 on the same PC and standard user account. Not released yet.
+
+| Test | Result |
+|---|---|
+| **Automated tests** | **194 of 194 passed** (182 before, plus 12 new), Release build with 0 warnings. |
+| **Standards conformance** | All **21** cases of the standards' `expected-statuses.json` give the expected status. All 7 valid fixtures pass validation; all 3 invalid fixtures are rejected (one for an unknown `runScript` member). |
+| **Interoperability with the standards' own tool** | A snapshot signed by `ht-standards` (.NET 10) with a throwaway test key is verified by the .NET Framework port. Changing one byte, an untrusted key, a missing signature and the wrong data kind are all rejected. Signatures made with Windows CNG round-trip. |
+| **Strict JSON** | Unknown members, missing required members, wrong types, comments, trailing commas and single-quoted strings are rejected, as by the standards' reader. |
+| **Offline behaviour** | No snapshot: status *Unknown*. An unsigned snapshot is refused by release builds and accepted, with a warning, only by internal builds. A snapshot for another application, and test fixtures, are refused. **Check for Advisories** reports that the service is not configured and changes nothing. |
+| **Security report** | Markdown and JSON reports state the policy, mark historical data, and contain no computer or user name. |
+| **Windows** | Help > Security Advisories and Help > About > Security Advisory History; the history window (empty and with fixtures), the details window (links in advisory text are never live) and the About window checked, with screenshots. |
+| **Branding** | Copyright stamped with the build year; "An HTREASURE LTD product"; company number; no ® or ™; Deep Navy banner; status bar footer. |
+| **Release script** | Refuses to build without an advisory signing key. With `-AllowUnsignedSnapshot` (internal test build, written outside `artifacts`) it generated the snapshot and `ht-compatibility.json` with `ht-standards`, and built all packages. |
+| **Installer (internal build)** | Upgrade from the published 1.0.2: same folder kept, Start menu shortcut moved to the HTREASURE folder, "An HTREASURE LTD product" and support contact in installed apps, snapshot and manifest installed, program started. Fresh install: `%LOCALAPPDATA%\Programs\HTREASURE\HT ISO Creator`. Uninstall removed everything except settings and history. |
+| **Windows 7 / 8.1** | The installer now allows Windows 7 SP1 and later; the program declares Windows 7, 8 and 8.1 in its manifest; the Windows mount check reports itself unavailable before Windows 8 (unit-tested); every native call the program makes exists on Windows 7. **Not run on Windows 7 or 8.1**: no such PC or VM was available. |
+
 ## Version 1.0.2
 1.0.2 adds the end-user licence agreement (`LICENSE.txt`): the installer's licence page, the licence file in every package, and the **Help > Licence Agreement** and **About > View licence agreement** links. The program is otherwise unchanged from 1.0.1.
 
@@ -211,6 +228,9 @@ After the fixes, every real-data, edge-case and damage test in sections 2–4 wa
 | **Code signing** | The program and installer are **not digitally signed**, so SmartScreen may warn. Users are told to check `SHA256SUMS.txt`. |
 | **Licence** | From 1.0.2, the HTREASURE LTD end-user licence (personal, non-commercial use; law of England and Wales) is included and shown by the installer. Versions 1.0.0 and 1.0.1 have none. The licence text has not been reviewed by a lawyer. |
 | **Contact and support details** | Version 1.0.1 includes the HTREASURE LTD website (www.htreasure.com). No e-mail or telephone support details have been supplied. |
+| **Windows 7 SP1 and 8.1** | Supported from the next release, but not tested on either: no Windows 7 or 8.1 PC or VM was available. |
+| **Advisory signing key** | HTREASURE LTD has no production advisory signing key yet (`trusted-keys.json` is empty), so no release can include a signed advisory snapshot; the release script refuses to make one without it. |
+| **Online advisory checks and security updates** | Not available: no HTREASURE advisory feed or release feed exists for HT ISO Creator yet. |
 | **Fixed-size window on a real high-DPI small screen** | The fit-and-scroll behaviour was tested by an automated test with a simulated small screen, not on a real one. |
 | **Cancelling UDF creation** | Takes effect after IMAPI2's layout step (about 3 s per 1,000 files). This is documented. |
 

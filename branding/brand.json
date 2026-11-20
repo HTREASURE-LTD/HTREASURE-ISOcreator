@@ -1,0 +1,89 @@
+{
+  "$comment": "HTREASURE LTD corporate branding configuration. All paths are relative to the HTREASURE-Branding folder.",
+  "version": "1.0.0",
+  "company": {
+    "name": "HTREASURE LTD",
+    "registrationNumber": "17178941",
+    "jurisdiction": "England and Wales",
+    "registeredAddress": "34a Wagg Street, Congleton, England, CW12 4BA",
+    "country": "United Kingdom",
+    "incorporated": "2026-04-24"
+  },
+  "publisher": "HTREASURE LTD",
+  "attribution": "An HTREASURE LTD product",
+  "copyright": {
+    "template": "Copyright © {year} HTREASURE LTD. All rights reserved.",
+    "firstYear": 2026,
+    "yearSource": "Replace {year} with the build or current year at run time; do not hard-code it."
+  },
+  "codeSigning": {
+    "configured": false,
+    "note": "Do not describe executables as digitally signed until a code-signing certificate is configured."
+  },
+  "colors": {
+    "primary": {
+      "deepNavy": "#0B1F3A",
+      "technologyBlue": "#0B3D91",
+      "electricBlue": "#168BFF",
+      "white": "#FFFFFF",
+      "silverGrey": "#AAB4C3"
+    },
+    "secondary": {
+      "edge": "#3A5275",
+      "pageGrey": "#F4F6F9",
+      "lineGrey": "#DDE3EB",
+      "mutedText": "#5A6577"
+    }
+  },
+  "typography": {
+    "brandFont": "Inter",
+    "brandFontFiles": "Source/Fonts/Inter",
+    "brandFontLicence": "SIL Open Font License 1.1 (Source/Fonts/Inter/OFL-LICENSE.txt)",
+    "defaultApplicationFont": "Segoe UI",
+    "webFontStack": "Inter, \"Segoe UI\", system-ui, Arial, sans-serif"
+  },
+  "logos": {
+    "primary": "Logos/Primary/HTREASURE-logo-primary.svg",
+    "primaryPng": "Logos/Primary/HTREASURE-logo-primary-1024w.png",
+    "horizontalLight": "Logos/Horizontal/HTREASURE-logo-horizontal-color.svg",
+    "horizontalDark": "Logos/Horizontal/HTREASURE-logo-horizontal-color-dark.svg",
+    "horizontalNavy": "Logos/Horizontal/HTREASURE-logo-horizontal-navy.svg",
+    "horizontalWhite": "Logos/Horizontal/HTREASURE-logo-horizontal-white.svg",
+    "verticalLight": "Logos/Vertical/HTREASURE-logo-vertical-color.svg",
+    "verticalDark": "Logos/Vertical/HTREASURE-logo-vertical-color-dark.svg",
+    "monogram": "Logos/Monogram/HTREASURE-monogram-color.svg",
+    "monochrome": "Logos/Monochrome/HTREASURE-horizontal-black.svg"
+  },
+  "icons": {
+    "windowsIco": "Icons/Windows/HTREASURE.ico",
+    "pngFolder": "Icons/Desktop",
+    "pngPattern": "Icons/Desktop/HTREASURE-icon-{size}.png",
+    "pngSizes": [16, 24, 32, 48, 64, 128, 256, 512],
+    "icoSizes": [16, 20, 24, 32, 40, 48, 64, 128, 256],
+    "favicon": "Icons/Web/favicon.ico",
+    "faviconSvg": "Icons/Web/favicon.svg",
+    "webManifest": "Icons/Web/site.webmanifest"
+  },
+  "splash": {
+    "background": "SplashScreens/HTREASURE-splash-base-{width}x{height}.png",
+    "sizes": [[640, 360], [960, 540], [1280, 720], [1920, 1080]],
+    "designSize": [1280, 720],
+    "layout": {
+      "$comment": "Positions on the 1280x720 design canvas; scale to the window. Text y values are baselines.",
+      "productName": { "x": 102, "y": 520, "size": 60, "weight": "SemiBold", "color": "#FFFFFF" },
+      "version": { "x": 102, "y": 562, "size": 26, "weight": "Regular", "color": "#AAB4C3", "format": "Version {version}" },
+      "progressBar": { "x": 102, "y": 600, "width": 1076, "height": 5, "track": "rgba(255,255,255,0.12)", "fill": "#168BFF" },
+      "footer": { "x": 102, "y": 656, "size": 20, "weight": "Regular", "color": "#AAB4C3" }
+    }
+  },
+  "products": [
+    { "id": "bulk-file-renamer", "name": "HT Bulk File Renamer", "icon": "Icons/Products/bulk-file-renamer/HT-bulk-file-renamer.ico" },
+    { "id": "iso-maker", "name": "HT ISO Maker", "icon": "Icons/Products/iso-maker/HT-iso-maker.ico" },
+    { "id": "backup-recovery", "name": "HT Backup and Recovery", "icon": "Icons/Products/backup-recovery/HT-backup-recovery.ico" },
+    { "id": "disk-utilities", "name": "HT Disk Utilities", "icon": "Icons/Products/disk-utilities/HT-disk-utilities.ico" },
+    { "id": "file-management", "name": "HT File Management", "icon": "Icons/Products/file-management/HT-file-management.ico" },
+    { "id": "system-maintenance", "name": "HT System Maintenance", "icon": "Icons/Products/system-maintenance/HT-system-maintenance.ico" },
+    { "id": "business-management", "name": "HT Business Management", "icon": "Icons/Products/business-management/HT-business-management.ico" }
+  ],
+  "guidelines": "BrandGuidelines/HTREASURE-Brand-Guidelines.pdf"
+}

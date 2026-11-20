@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "HTSA-0000-0901",
+  "appId": "ht-fixture-app",
+  "title": "[TEST FIXTURE] Affected update verification issue",
+  "summary": "This is a TEST FIXTURE used only by automated tests and screenshots. It does not describe a real vulnerability.\n\nIllustrative description: **affected update verification issue** in a fictional component.",
+  "severity": "critical",
+  "published": "2026-01-15",
+  "updated": "2026-02-01",
+  "verificationStatus": "verified",
+  "remediation": "Install security update 2.1.0.",
+  "fixedVersions": [
+    "2.1.0"
+  ],
+  "mitigation": "Until you update, only open files from trusted sources."
+}

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -6,7 +6,8 @@ using System.Reflection;
 namespace HTISOCreator.Helpers
 {
     /// <summary>
-    /// The application icon, loaded from the embedded Resources\app.ico (which holds 16-256 px images,
+    /// The application icon: HT ISO Creator's product icon from the HTREASURE brand kit (branding\Icons\HT-iso-maker.ico,
+    /// embedded; it holds 16-256 px images,
     /// so title bars stay sharp at every display scale).
     /// </summary>
     public static class AppIcon

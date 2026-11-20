@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "HTSA-0000-0004",
+  "appId": "ht-fixture-app",
+  "title": "[TEST FIXTURE] Logging issue with incomplete information",
+  "summary": "This is a TEST FIXTURE used only by automated tests and screenshots. It does not describe a real vulnerability.\n\nIllustrative description: **logging issue with incomplete information** in a fictional component.",
+  "severity": "low",
+  "published": "2026-01-15",
+  "updated": "2026-02-01",
+  "verificationStatus": "unverified",
+  "affected": [
+    {
+      "platforms": [
+        "*"
+      ],
+      "channels": [
+        "*"
+      ],
+      "status": "affected",
+      "ranges": [
+        {
+          "introduced": "1.0.0"
+        }
+      ]
+    }
+  ],
+  "remediation": "Install the fixed release when it is available."
+}

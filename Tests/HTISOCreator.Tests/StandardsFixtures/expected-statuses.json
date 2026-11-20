@@ -1,0 +1,258 @@
+{
+  "description": "Conformance cases every HTREASURE advisory client (.NET, web, Android) must pass. Fixture data only.",
+  "cases": [
+    {
+      "name": "verified fixed: equals fixed version",
+      "advisory": "HTSA-0000-0001",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "1.2.0",
+        "channel": "stable",
+        "platform": "windows-x64"
+      },
+      "expected": "Fixed"
+    },
+    {
+      "name": "verified fixed: within assessedThrough",
+      "advisory": "HTSA-0000-0001",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "2.0.0",
+        "channel": "stable",
+        "platform": "windows-x64"
+      },
+      "expected": "Fixed"
+    },
+    {
+      "name": "newer than assessedThrough is not assumed fixed",
+      "advisory": "HTSA-0000-0001",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "3.0.0",
+        "channel": "stable",
+        "platform": "windows-x64"
+      },
+      "expected": "Unknown"
+    },
+    {
+      "name": "inside affected range",
+      "advisory": "HTSA-0000-0001",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "1.1.5",
+        "channel": "stable",
+        "platform": "windows-x64"
+      },
+      "expected": "Affected"
+    },
+    {
+      "name": "backported fix by version",
+      "advisory": "HTSA-0000-0001",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "1.1.5+backport.1",
+        "channel": "stable",
+        "platform": "windows-x64"
+      },
+      "expected": "Fixed"
+    },
+    {
+      "name": "backported fix by build id",
+      "advisory": "HTSA-0000-0001",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "1.1.5",
+        "channel": "stable",
+        "platform": "windows-x64",
+        "buildId": "1.1.5+backport.1"
+      },
+      "expected": "Fixed"
+    },
+    {
+      "name": "before introduced",
+      "advisory": "HTSA-0000-0001",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "0.9.0",
+        "channel": "stable",
+        "platform": "windows-x64"
+      },
+      "expected": "NotAffected"
+    },
+    {
+      "name": "no rule for channel",
+      "advisory": "HTSA-0000-0001",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "1.2.0",
+        "channel": "beta",
+        "platform": "windows-x64"
+      },
+      "expected": "Unknown"
+    },
+    {
+      "name": "no rule for platform",
+      "advisory": "HTSA-0000-0001",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "1.2.0",
+        "channel": "stable",
+        "platform": "android"
+      },
+      "expected": "Unknown"
+    },
+    {
+      "name": "verified affected",
+      "advisory": "HTSA-0000-0002",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "2.0.0",
+        "channel": "stable",
+        "platform": "windows-x64"
+      },
+      "expected": "Affected"
+    },
+    {
+      "name": "fixed release",
+      "advisory": "HTSA-0000-0002",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "2.1.0",
+        "channel": "stable",
+        "platform": "windows-x64"
+      },
+      "expected": "Fixed"
+    },
+    {
+      "name": "under review",
+      "advisory": "HTSA-0000-0003",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "2.0.0",
+        "channel": "stable",
+        "platform": "windows-x64"
+      },
+      "expected": "UnderReview"
+    },
+    {
+      "name": "unverified gives unknown",
+      "advisory": "HTSA-0000-0004",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "2.0.0",
+        "channel": "stable",
+        "platform": "windows-x64"
+      },
+      "expected": "Unknown"
+    },
+    {
+      "name": "platform specific: arm64 affected",
+      "advisory": "HTSA-0000-0005",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "2.0.0",
+        "channel": "stable",
+        "platform": "windows-arm64"
+      },
+      "expected": "Affected"
+    },
+    {
+      "name": "platform specific: x64 verified not affected",
+      "advisory": "HTSA-0000-0005",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "2.0.0",
+        "channel": "stable",
+        "platform": "windows-x64"
+      },
+      "expected": "NotAffected"
+    },
+    {
+      "name": "platform specific: arm64 after last affected",
+      "advisory": "HTSA-0000-0005",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "2.1.0",
+        "channel": "stable",
+        "platform": "windows-arm64"
+      },
+      "expected": "Unknown"
+    },
+    {
+      "name": "beta channel affected",
+      "advisory": "HTSA-0000-0006",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "2.1.0-beta.2",
+        "channel": "beta",
+        "platform": "windows-x64"
+      },
+      "expected": "Affected"
+    },
+    {
+      "name": "beta channel fixed",
+      "advisory": "HTSA-0000-0006",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "2.1.0-beta.3",
+        "channel": "beta",
+        "platform": "windows-x64"
+      },
+      "expected": "Fixed"
+    },
+    {
+      "name": "stable channel not affected by beta issue",
+      "advisory": "HTSA-0000-0006",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "2.1.0",
+        "channel": "stable",
+        "platform": "windows-x64"
+      },
+      "expected": "NotAffected"
+    },
+    {
+      "name": "no fix available",
+      "advisory": "HTSA-0000-0007",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "2.1.0",
+        "channel": "stable",
+        "platform": "windows-x64"
+      },
+      "expected": "Affected"
+    },
+    {
+      "name": "unparseable installed version",
+      "advisory": "HTSA-0000-0002",
+      "installed": {
+        "appId": "ht-fixture-app",
+        "name": "HT Fixture App",
+        "version": "2.0",
+        "channel": "stable",
+        "platform": "windows-x64"
+      },
+      "expected": "Unknown"
+    }
+  ]
+}

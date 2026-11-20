@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "HTSA-0000-0003",
+  "appId": "ht-fixture-app",
+  "title": "[TEST FIXTURE] Settings import issue under review",
+  "summary": "This is a TEST FIXTURE used only by automated tests and screenshots. It does not describe a real vulnerability.\n\nIllustrative description: **settings import issue under review** in a fictional component.",
+  "severity": "medium",
+  "published": "2026-01-15",
+  "updated": "2026-02-01",
+  "verificationStatus": "under-review",
+  "affected": [
+    {
+      "platforms": [
+        "*"
+      ],
+      "channels": [
+        "*"
+      ],
+      "status": "affected",
+      "ranges": [
+        {
+          "introduced": "1.5.0"
+        }
+      ]
+    }
+  ],
+  "remediation": "Install the fixed release when it is available."
+}
